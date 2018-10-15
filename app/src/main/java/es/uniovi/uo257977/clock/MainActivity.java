@@ -1,47 +1,33 @@
 package es.uniovi.uo257977.clock;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_alarms:
-                    mTextMessage.setText(R.string.menu_alarm);
-                    return true;
-                case R.id.navigation_stopwatch:
-                    mTextMessage.setText(R.string.menu_stopwatch);
-                    return true;
-                case R.id.navigation_timer:
-                    mTextMessage.setText(R.string.menu_timer);
-                    return true;
-                case R.id.navigation_scoreboard:
-                    mTextMessage.setText(R.string.menu_scoreboard);
-                    return true;
-            }
-            return false;
-        }
-    };
+    /*
+    Barra de navegacion de la libreria externa: AHBottomNavigation (Más opciones que la original de Android)
+    https://github.com/aurelhubert/ahbottomnavigation
+    */
+    AHBottomNavigation bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        AHBottomNavigationItem alarms = new AHBottomNavigationItem(getString(R.string.menu_alarm), R.drawable.ic_alarm_black_24dp);
+        AHBottomNavigationItem timer = new AHBottomNavigationItem(getString(R.string.menu_timer), R.drawable.ic_hourglass_empty_black_24dp);
+        AHBottomNavigationItem stopwatch = new AHBottomNavigationItem(getString(R.string.menu_stopwatch), R.drawable.ic_timer_black_24dp);
+        AHBottomNavigationItem scoreboard = new AHBottomNavigationItem(getString(R.string.menu_scoreboard), R.drawable.ic_sort_black_24dp);
+
+        bottomNavigation = findViewById(R.id.bottom_navigation);
+        bottomNavigation.addItems(Arrays.asList(alarms, timer, stopwatch, scoreboard));
     }
 
 }

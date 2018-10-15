@@ -1,8 +1,5 @@
 <resources>
-    <string name="app_name">Clock</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Reloj</string>
     <string name="menu_alarm">Alarmas</string>
     <string name="menu_stopwatch">Cronometro</string>
     <string name="menu_timer">Temporizador</string>
