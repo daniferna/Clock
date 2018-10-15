@@ -1,6 +1,8 @@
 package es.uniovi.uo257977.clock;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -8,13 +10,14 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AlarmsFragment.OnFragmentInteractionListener {
 
     /*
     Barra de navegacion de la libreria externa: AHBottomNavigation (Más opciones que la original de Android)
     https://github.com/aurelhubert/ahbottomnavigation
     */
     AHBottomNavigation bottomNavigation;
+    Fragment fragmentTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.addItems(Arrays.asList(alarms, timer, stopwatch, scoreboard));
+        bottomNavigation.setCurrentItem(0);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //TODO No se muy bien que va aqui
+    }
 }

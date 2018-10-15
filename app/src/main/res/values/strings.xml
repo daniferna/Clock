@@ -4,4 +4,8 @@
     <string name="menu_stopwatch">Cronometro</string>
     <string name="menu_timer">Temporizador</string>
     <string name="menu_scoreboard">Puntuación</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="test">TEST</string>
 </resources>
