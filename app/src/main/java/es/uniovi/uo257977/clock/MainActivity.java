@@ -3,6 +3,7 @@ package es.uniovi.uo257977.clock;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements AlarmsFragment.On
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.addItems(Arrays.asList(alarms, timer, stopwatch, scoreboard));
         bottomNavigation.setCurrentItem(0);
+        bottomNavigation.setAccentColor(ContextCompat.getColor(getApplicationContext(), R.color.accent));
     }
 
     @Override
