@@ -7,7 +7,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
         Alarm alarm = alarms.get(position);
         SimpleDateFormat formatter = new SimpleDateFormat("hh:mm");//formating according to my need
         holder.hourAlarmTxt.setText(formatter.format(alarm.getFecha_alarma().getTime()));
-        holder.txtNombreAlarma.getEditText().setText(alarm.getNombre());
+        holder.txtNombreAlarma.setText(alarm.getNombre());
         for (Alarm.DIAS_ALARMA dia : alarm.getDiasAlarma())
             switch (dia) {
                 case LUNES:
@@ -74,7 +73,7 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
         ChipGroup chipGroup;
         Switch switchAlarm;
         TextView hourAlarmTxt;
-        TextInputLayout txtNombreAlarma;
+        TextView txtNombreAlarma;
 
 
         public ViewHolder(@NonNull View itemView) {
