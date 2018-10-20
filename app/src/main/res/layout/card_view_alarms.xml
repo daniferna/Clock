@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="5dp"
+    android:orientation="vertical"
+    android:theme="@style/Widget.MaterialComponents.CardView"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Switch
+            android:id="@+id/switch_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:showText="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.973"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.13999999" />
+
+        <TextView
+            android:id="@+id/hour_alarm_txt"
+            android:layout_width="216dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:ems="10"
+            android:fontFamily="@font/source_sans_pro"
+            android:format24Hour="hh:mm"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/switch_alarm"
+            app:layout_constraintHorizontal_bias="0.123"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.117"
+            tools:text="12:00" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:chipSpacingHorizontal="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hour_alarm_txt"
+            app:singleSelection="false">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipLunes"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="L"
+                android:textSize="13dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMartes"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="M"
+                android:textSize="13dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMiercoles"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="X"
+                android:textSize="13dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipJueves"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="J"
+                android:textSize="13dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipViernes"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="V"
+                android:textSize="13dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipSabado"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="S"
+                android:textSize="13dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDomingo"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="D"
+                android:textSize="13dp" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="73dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:checked="false"
+            android:clickable="true"
+            android:text="Vibrar"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtNombreAlarma"
+            android:layout_width="185dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:focusedByDefault="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+            app:layout_constraintVertical_bias="0.0"
+            app:passwordToggleEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alarma"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/trash_btn_alarm"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+            android:layout_width="39dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:drawableTint="@color/primary_text"
+            app:icon="@drawable/ic_delete_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/radioButton"
+            app:layout_constraintHorizontal_bias="0.375"
+            app:layout_constraintStart_toEndOf="@+id/txtNombreAlarma"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

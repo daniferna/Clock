@@ -1,4 +1,4 @@
-package es.uniovi.uo257977.clock;
+package es.uniovi.uo257977.clock.Fragments;
 
 
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import es.uniovi.uo257977.clock.R;
 
 public class StopwatchFragment extends Fragment {
 

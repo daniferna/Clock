@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 import androidx.viewpager.widget.ViewPager;
+import es.uniovi.uo257977.clock.Fragments.AlarmsFragment;
+import es.uniovi.uo257977.clock.Fragments.StopwatchFragment;
+import es.uniovi.uo257977.clock.Fragments.TimerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
