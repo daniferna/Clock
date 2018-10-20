@@ -1,5 +1,6 @@
 package es.uniovi.uo257977.clock;
 
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class AlarmsFragment extends Fragment {
+public class StopwatchFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_alarms, container, false);
+        return inflater.inflate(R.layout.fragment_stopwatch, container, false);
     }
+
 }

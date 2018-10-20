@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/navigation_alarms"
-        android:icon="@drawable/ic_alarm_black_24dp"
-        android:title="@string/menu_alarm"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/navigation_stopwatch"
-        android:icon="@drawable/ic_timer_black_24dp"
-        android:title="@string/menu_stopwatch"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/navigation_timer"
-        android:icon="@drawable/ic_hourglass_empty_black_24dp"
-        android:title="@string/menu_timer"
-        app:showAsAction="always" />
     <item
         android:id="@+id/navigation_scoreboard"
         android:icon="@drawable/ic_sort_black_24dp"
