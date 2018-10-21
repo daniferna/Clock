@@ -3,19 +3,25 @@ package es.uniovi.uo257977.clock;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Arrays;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 import androidx.viewpager.widget.ViewPager;
 import es.uniovi.uo257977.clock.Fragments.AlarmsFragment;
 import es.uniovi.uo257977.clock.Fragments.StopwatchFragment;
 import es.uniovi.uo257977.clock.Fragments.TimerFragment;
+import es.uniovi.uo257977.clock.Logic.Alarm;
+import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -116,5 +122,12 @@ public class MainActivity extends AppCompatActivity {
         AnimatedVectorDrawableCompat drawable = AnimatedVectorDrawableCompat.create(getApplicationContext(), R.drawable.from_play_to_add);
         fab.setImageDrawable(drawable);
         drawable.start();
+    }
+
+    public void clickFab(View view) {
+
+        //TODO Borrar esto e introducir Activity que añada las alarmas
+        RecyclerView rv = findViewById(R.id.recycler_alarms);
+        ((AlarmRecyclerAdapter) rv.getAdapter()).updateAlarms(Arrays.asList(new Alarm(), new Alarm(), new Alarm(), new Alarm(), new Alarm()));
     }
 }

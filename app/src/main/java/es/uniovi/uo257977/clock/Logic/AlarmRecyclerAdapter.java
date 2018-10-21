@@ -10,19 +10,26 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import es.uniovi.uo257977.clock.R;
 
 public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolder> {
 
-    private ArrayList<Alarm> alarms;
+    private ArrayList<Alarm> alarms = new ArrayList<Alarm>();
 
 
-    public AlarmRecyclerAdapter(ArrayList<Alarm> alarms) {
-        this.alarms = alarms;
+    public void updateAlarms(List<Alarm> newList) {
+        final DiffUtilAlarm diffCallback = new DiffUtilAlarm(this.alarms, newList);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        alarms.clear();
+        alarms.addAll(newList);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @NonNull

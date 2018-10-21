@@ -1,9 +1,11 @@
 package es.uniovi.uo257977.clock.Logic;
 
 import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Alarm {
 
+    private int ID;
     private Date fecha_alarma;
     private boolean vibrar;
     private String nombre;
@@ -16,6 +18,7 @@ public class Alarm {
         this.vibrar = vibrar;
         this.nombre = nombre;
         this.diasAlarma = diasAlarma;
+        ID = ThreadLocalRandom.current().nextInt();
     }
 
     public Alarm() {
@@ -54,5 +57,9 @@ public class Alarm {
 
     public void setDiasAlarma(DIAS_ALARMA[] diasAlarma) {
         this.diasAlarma = diasAlarma;
+    }
+
+    public int getID() {
+        return ID;
     }
 }

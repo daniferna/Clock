@@ -5,14 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import es.uniovi.uo257977.clock.Logic.Alarm;
 import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
 import es.uniovi.uo257977.clock.R;
 
@@ -36,9 +33,7 @@ public class AlarmsFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        ArrayList<Alarm> listaAlarmas = new ArrayList<Alarm>();
-        listaAlarmas.add(new Alarm());
-        alarmRecyclerAdapter = new AlarmRecyclerAdapter(listaAlarmas);
+        alarmRecyclerAdapter = new AlarmRecyclerAdapter();
         recyclerView.setAdapter(alarmRecyclerAdapter);
 
         super.onViewCreated(view, savedInstanceState);
