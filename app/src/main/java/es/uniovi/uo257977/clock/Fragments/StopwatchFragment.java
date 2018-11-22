@@ -3,15 +3,11 @@ package es.uniovi.uo257977.clock.Fragments;
 
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
-
-import java.sql.Time;
-import java.util.zip.Inflater;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,8 +16,8 @@ import es.uniovi.uo257977.clock.R;
 
 public class StopwatchFragment extends Fragment  {
 
-    Chronometer chrono;
-    Boolean isRunnig=false,isPaused=false;
+    private Chronometer chrono;
+    private Boolean isRunnig=false,isPaused=false;
     private long timeWhenStopped=0;
 
 
@@ -49,7 +45,7 @@ public class StopwatchFragment extends Fragment  {
         });
 
 
-        Button playbt = (Button) view.findViewById(R.id.playbt);
+        Button playbt = view.findViewById(R.id.playbt);
         playbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +54,7 @@ public class StopwatchFragment extends Fragment  {
             }
         });
 
-        Button pausebt = (Button) view.findViewById(R.id.pausebt);
+        Button pausebt = view.findViewById(R.id.pausebt);
         pausebt.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -69,7 +65,7 @@ public class StopwatchFragment extends Fragment  {
             }
         });
 
-        Button stopbt = (Button) view.findViewById(R.id.stopbt);
+        Button stopbt = view.findViewById(R.id.stopbt);
         stopbt.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -86,8 +82,7 @@ public class StopwatchFragment extends Fragment  {
 
     }
 
-    public void startChrono(){
-        Log.d("start", "here it goes");
+    private void startChrono(){
         if(!isRunnig && !isPaused){
             chrono.setBase(SystemClock.elapsedRealtime());
             chrono.start();
@@ -102,7 +97,7 @@ public class StopwatchFragment extends Fragment  {
         }
     }
 
-    public void stopChrono(){
+    private void stopChrono(){
         chrono.stop();
         chrono.setBase(SystemClock.elapsedRealtime());
         isRunnig = false;
@@ -110,8 +105,7 @@ public class StopwatchFragment extends Fragment  {
 
     }
 
-    public void pauseChrono(){
-        Log.d("heree", "hereeeee2");
+    private void pauseChrono(){
         if(isRunnig){
             timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
             chrono.stop();
