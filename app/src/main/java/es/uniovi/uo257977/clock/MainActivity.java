@@ -124,4 +124,8 @@ public class MainActivity extends AppCompatActivity {
     public void clickFab(View view) {
         startActivity(new Intent(this, AddAlarmActivity.class));
     }
+
+    public void scoreboardClick(MenuItem item) {
+        startActivity(new Intent(this, ScoreboardActivity.class));
+    }
 }

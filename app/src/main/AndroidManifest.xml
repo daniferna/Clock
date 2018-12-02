@@ -26,9 +26,10 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".AddAlarmActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".AddAlarmActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ScoreboardActivity"></activity>
     </application>
 
 </manifest>

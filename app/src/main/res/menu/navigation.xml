@@ -5,7 +5,7 @@
         android:id="@+id/navigation_scoreboard"
         android:icon="@drawable/ic_sort_black_24dp"
         android:title="@string/menu_scoreboard"
-
+        android:onClick="scoreboardClick"
         app:showAsAction="always" />
 
 </menu>
