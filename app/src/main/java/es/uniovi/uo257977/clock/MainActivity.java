@@ -108,10 +108,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void changeFromAddToPlayAnimate() {
+        if (needAnimate){
         AnimatedVectorDrawableCompat drawable = AnimatedVectorDrawableCompat.create(getApplicationContext(), R.drawable.from_add_to_play);
         fab.setImageDrawable(drawable);
-        if (needAnimate)
-            drawable.start();
+        drawable.start();
+        }
     }
 
     private void changeFromPlayToAddAnimate() {

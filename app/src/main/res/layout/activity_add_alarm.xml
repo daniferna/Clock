@@ -10,9 +10,10 @@
         android:id="@+id/timePicker_addAlarm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:theme="@android:style/Widget.Material.TimePicker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TimePicker>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txt_addNombreAlarma"
@@ -21,7 +22,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:hint="Nombre"
+        android:hint="@string/nombreAddAlarm"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +43,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="seleccionarTonoAdd"
-        android:text="Seleccionar tono"
+        android:text="@string/seleccionar_tono"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.039"
@@ -65,7 +66,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.984"
-        app:srcCompat="@drawable/ic_check_white_24dp" />
+        app:srcCompat="@drawable/ic_check_white_24dp"
+        android:focusable="true" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup_addAlarm"
@@ -77,67 +79,95 @@
         app:layout_constraintEnd_toStartOf="@+id/fab_addAlarm"
         app:layout_constraintHorizontal_bias="0.14"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_addNombreAlarma">
+        app:layout_constraintTop_toBottomOf="@+id/txt_addNombreAlarma"
+        app:singleLine="true"
+        app:singleSelection="false">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_lunesAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="L" />
+            android:checkable="true"
+            android:checked="false"
+            android:text="@string/lunes_short"
+            app:checkedIconEnabled="false"
+            />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_martesAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="M" />
+            android:checkable="true"
+            android:checked="false"
+            android:text="@string/martes_short"
+            app:checkedIconEnabled="false"
+            />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_miercolesAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="X" />
+            android:checkable="true"
+            android:checked="false"
+            android:text="@string/miercoles_short"
+            app:checkedIconEnabled="false"
+            />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_juevesAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="J" />
+            android:checkable="true"
+            android:checked="false"
+            android:text="@string/jueves_short"
+            app:checkedIconEnabled="false"
+            />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_viernesAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="V" />
+            android:checkable="true"
+            android:checked="false"
+            android:text="@string/viernes_short"
+            app:checkedIconEnabled="false"
+            />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_sabadoAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="S" />
+            android:checkable="true"
+            android:checked="false"
+            android:text="@string/sabado_short"
+            app:checkedIconEnabled="false"
+            />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_domingoAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="D" />
+            android:checkable="true"
+            android:checked="false"
+            android:text="@string/domingo_short"
+            app:checkedIconEnabled="false"
+            />
     </com.google.android.material.chip.ChipGroup>
 
     <ImageButton
         android:id="@+id/imageButton"
         style="@android:style/Widget.Material.ImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="47dp"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:backgroundTint="?android:attr/colorBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fab_addAlarm"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/btn_seleccionarTonoAdd"
         app:layout_constraintTop_toBottomOf="@+id/chipGroup_addAlarm"
-        app:layout_constraintVertical_bias="0.809"
-        app:srcCompat="@drawable/ic_spotify_1" />
+        app:srcCompat="@drawable/ic_spotify_1"
+        android:contentDescription="@string/spotify_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
