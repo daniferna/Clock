@@ -3,9 +3,9 @@
   <color name="primary">#3F51B5</color>
   <color name="primary_dark">#303F9F</color>
   <color name="primary_light">#e0e0e0</color>
-  <color name="accent">#ff4081</color>
+  <color name="accent">#3d5afe</color>
   <color name="primary_text">#212121</color>
   <color name="secondary_text">#757575</color>
-    <color name="icons">#ffffff</color>
+  <color name="icons">#ffffff</color>
   <color name="divider">#BDBDBD</color>
 </resources>

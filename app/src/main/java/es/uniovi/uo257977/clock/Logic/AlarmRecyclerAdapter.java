@@ -41,7 +41,7 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Alarm alarm = alarms.get(position);
-        SimpleDateFormat formatter = new SimpleDateFormat("hh:mm");//formating according to my need
+        SimpleDateFormat formatter = new SimpleDateFormat("hh:mm");
         holder.hourAlarmTxt.setText(formatter.format(alarm.getFecha_alarma().getTime()));
         holder.txtNombreAlarma.setText(alarm.getNombre());
         for (Alarm.DIAS_ALARMA dia : alarm.getDiasAlarma())
