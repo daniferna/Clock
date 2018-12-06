@@ -1,5 +1,6 @@
 package es.uniovi.uo257977.clock.Logic;
 
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 
@@ -14,7 +15,6 @@ public class Alarm {
     private String nombre;
     private Uri sonido;
     private DIAS_ALARMA[] diasAlarma;
-
     public enum DIAS_ALARMA {LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO}
 
     public Alarm(Date fecha_alarma, boolean vibrar, String nombre, DIAS_ALARMA[] diasAlarma, Uri ringtone) {

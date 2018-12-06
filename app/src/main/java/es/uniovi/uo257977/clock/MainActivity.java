@@ -2,22 +2,36 @@ package es.uniovi.uo257977.clock;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 import androidx.viewpager.widget.ViewPager;
+import br.com.kots.mob.complex.preferences.ComplexPreferences;
 import es.uniovi.uo257977.clock.Fragments.AlarmsFragment;
 import es.uniovi.uo257977.clock.Fragments.StopwatchFragment;
 import es.uniovi.uo257977.clock.Fragments.TimerFragment;
+import es.uniovi.uo257977.clock.Logic.Alarm;
+import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
+import es.uniovi.uo257977.clock.Logic.ListAlarms;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
     Context context;
     boolean needAnimate = true;
+    static final int ALARM_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,11 +122,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void changeFromAddToPlayAnimate() {
-        if (needAnimate){
-        AnimatedVectorDrawableCompat drawable = AnimatedVectorDrawableCompat.create(getApplicationContext(), R.drawable.from_add_to_play);
-        fab.setImageDrawable(drawable);
-        drawable.start();
+        if (needAnimate) {
+            AnimatedVectorDrawableCompat drawable = AnimatedVectorDrawableCompat.create(getApplicationContext(), R.drawable.from_add_to_play);
+            fab.setImageDrawable(drawable);
+            drawable.start();
         }
     }
 
@@ -122,10 +138,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickFab(View view) {
-        startActivity(new Intent(this, AddAlarmActivity.class));
+        startActivityForResult(new Intent(this, AddAlarmActivity.class), ALARM_REQUEST);
     }
 
     public void scoreboardClick(MenuItem item) {
         startActivity(new Intent(this, ScoreboardActivity.class));
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == ALARM_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                RecyclerView viewAlarmas = findViewById(R.id.recycler_alarms);
+                ListAlarms listaTemp = data.getExtras().getParcelable("lista");
+                ((AlarmRecyclerAdapter) viewAlarmas.getAdapter()).updateAlarms(listaTemp.alarmas);
+            }
+        }
     }
 }

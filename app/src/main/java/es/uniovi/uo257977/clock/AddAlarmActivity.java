@@ -8,16 +8,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TimePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import br.com.kots.mob.complex.preferences.ComplexPreferences;
+import es.uniovi.uo257977.clock.Logic.Alarm;
+import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
+import es.uniovi.uo257977.clock.Logic.ListAlarms;
 
 public class AddAlarmActivity extends AppCompatActivity {
 
     private final int TONE_PICKER = 001;
 
     private TimePicker timePicker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +50,23 @@ public class AddAlarmActivity extends AppCompatActivity {
         startActivityForResult(intentTono, TONE_PICKER);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //TODO
+
+    public void añadirAlarma(View view){
+        Alarm alarma = new Alarm();
+
+
+
+
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "mypref", MODE_PRIVATE);
+       ListAlarms alarmas = complexPreferences.getObject("list", ListAlarms.class);
+        alarmas.alarmas.add(alarma);
+        complexPreferences.putObject("list", alarmas);
+        complexPreferences.commit();
+
+
+        getIntent().putExtra("lista", alarmas);
+        setResult(RESULT_OK, getIntent());
+
     }
+
 }
