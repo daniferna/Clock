@@ -5,11 +5,18 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TimePicker;
+
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -25,6 +32,7 @@ public class AddAlarmActivity extends AppCompatActivity {
     private final int TONE_PICKER = 001;
 
     private TimePicker timePicker;
+    FloatingActionButton myFab;
 
 
     @Override
@@ -37,6 +45,13 @@ public class AddAlarmActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             //Arregla un bug de algunas versiones de Android que no ponen bien la hora en formato 24H
             timePicker.setHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+
+        myFab = findViewById(R.id.fab_addAlarm);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                añadirAlarma(v);
+            }
+        });
 
     }
 
@@ -51,22 +66,97 @@ public class AddAlarmActivity extends AppCompatActivity {
     }
 
 
-    public void añadirAlarma(View view){
+    public void añadirAlarma(View view) {
         Alarm alarma = new Alarm();
 
 
+        TimePicker time = findViewById(R.id.timePicker_addAlarm);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Date fechaTemp = new Date(time.getHour() * 3600000 + time.getMinute() * 60000);
+            alarma.setFecha_alarma(fechaTemp);
+        }
+
+        EditText textoAlarma = findViewById(R.id.nombreAlarmaTxt);
+        alarma.setNombre(textoAlarma.getText().toString());
 
 
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "mypref", MODE_PRIVATE);
-       ListAlarms alarmas = complexPreferences.getObject("list", ListAlarms.class);
-        alarmas.alarmas.add(alarma);
-        complexPreferences.putObject("list", alarmas);
+        ChipGroup botonesDias = findViewById(R.id.chipGroup_addAlarm);
+        checkBotones(botonesDias, alarma);
+
+
+
+
+
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "MyPreferences", MODE_PRIVATE);
+        ListAlarms alarmasList = complexPreferences.getObject("Alarmas", ListAlarms.class);
+        if (alarmasList != null) {
+            alarmasList.alarmas.add(alarma);
+        } else {
+            alarmasList = new ListAlarms();
+            ArrayList<Alarm> temp = new ArrayList<>();
+            temp.add(alarma);
+            alarmasList.setAlarms(temp);
+
+        }
+
+        complexPreferences.putObject("Alarmas", alarmasList);
         complexPreferences.commit();
 
-
-        getIntent().putExtra("lista", alarmas);
+        getIntent().putParcelableArrayListExtra("Alarmas", alarmasList.alarmas);
         setResult(RESULT_OK, getIntent());
+
+        finish();
 
     }
 
+    private void checkBotones(ChipGroup botonesDias, Alarm alarma) {
+        ArrayList<Alarm.DIAS_ALARMA> diasAlarma = new ArrayList<>();
+        Chip boton;
+        for (int i = 0; i < 7; i++) {
+                switch (i) {
+                    case 0:
+                        boton = findViewById(R.id.chip_lunesAdd);
+                        if (boton.isChecked())
+                            diasAlarma.add(Alarm.DIAS_ALARMA.LUNES);
+                        break;
+                    case 1:
+                        boton = findViewById(R.id.chip_martesAdd);
+                        if (boton.isChecked())
+                            diasAlarma.add(Alarm.DIAS_ALARMA.MARTES);
+                        break;
+                    case 2:
+                        boton = findViewById(R.id.chip_miercolesAdd);
+                        if (boton.isChecked())
+                            diasAlarma.add(Alarm.DIAS_ALARMA.MIERCOLES);
+                        break;
+                    case 3:
+                        boton = findViewById(R.id.chip_juevesAdd);
+                        if (boton.isChecked())
+                            diasAlarma.add(Alarm.DIAS_ALARMA.JUEVES);
+                        break;
+                    case 4:
+                        boton = findViewById(R.id.chip_viernesAdd);
+                        if (boton.isChecked())
+                            diasAlarma.add(Alarm.DIAS_ALARMA.VIERNES);
+                        break;
+                    case 5:
+                        boton = findViewById(R.id.chip_sabadoAdd);
+                        if (boton.isChecked())
+                            diasAlarma.add(Alarm.DIAS_ALARMA.SABADO);
+                        break;
+                    case 6:
+                        boton = findViewById(R.id.chip_domingoAdd);
+                        if (boton.isChecked())
+                            diasAlarma.add(Alarm.DIAS_ALARMA.DOMINGO);
+                        break;
+                }
+
+            }
+
+        Alarm.DIAS_ALARMA[] dias =new Alarm.DIAS_ALARMA[diasAlarma.size()];
+        for(int i=0;i<diasAlarma.size();i++){
+            dias[i]=diasAlarma.get(i);
+        }
+        alarma.setDiasAlarma(dias);
+    }
 }

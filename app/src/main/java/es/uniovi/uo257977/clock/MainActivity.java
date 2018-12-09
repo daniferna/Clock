@@ -151,9 +151,11 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ALARM_REQUEST) {
             if (resultCode == RESULT_OK) {
                 RecyclerView viewAlarmas = findViewById(R.id.recycler_alarms);
-                ListAlarms listaTemp = data.getExtras().getParcelable("lista");
-                ((AlarmRecyclerAdapter) viewAlarmas.getAdapter()).updateAlarms(listaTemp.alarmas);
+                ArrayList<Alarm> alarmasExtra = data.getExtras().getParcelableArrayList("Alarmas");
+                ((AlarmRecyclerAdapter) viewAlarmas.getAdapter()).updateAlarms(alarmasExtra);
             }
         }
     }
+
+
 }

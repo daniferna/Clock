@@ -60,11 +60,12 @@ public class AlarmsFragment extends Fragment {
 
 
     private void cargarAlarmas() {
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getActivity().getApplicationContext(), "mypref", MODE_PRIVATE);
-        ListAlarms alarmas = complexPreferences.getObject("list", ListAlarms.class);
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getActivity().getApplicationContext(), "MyPreferences", MODE_PRIVATE);
+        ListAlarms alarmas = complexPreferences.getObject("Alarmas", ListAlarms.class);
         if(alarmas!=null)
-             pasarAlarmas(alarmas.alarmas);
+             pasarAlarmas((alarmas).alarmas);
 
     }
+
 
 }
