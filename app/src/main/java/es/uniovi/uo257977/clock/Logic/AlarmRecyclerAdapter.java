@@ -1,6 +1,5 @@
 package es.uniovi.uo257977.clock.Logic;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView.Adapter;
 import br.com.kots.mob.complex.preferences.ComplexPreferences;
 import es.uniovi.uo257977.clock.R;
 
-import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolder> {
@@ -36,6 +35,7 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 
         alarms.clear();
+        Collections.reverse(newList);
         alarms.addAll(newList);
         diffResult.dispatchUpdatesTo(this);
     }

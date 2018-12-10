@@ -5,7 +5,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -16,15 +15,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import br.com.kots.mob.complex.preferences.ComplexPreferences;
 import es.uniovi.uo257977.clock.Logic.Alarm;
-import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
 import es.uniovi.uo257977.clock.Logic.ListAlarms;
 
 public class AddAlarmActivity extends AppCompatActivity {
@@ -71,10 +65,16 @@ public class AddAlarmActivity extends AppCompatActivity {
 
 
         TimePicker time = findViewById(R.id.timePicker_addAlarm);
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Date fechaTemp = new Date(time.getHour() * 3600000 + time.getMinute() * 60000);
-            alarma.setFecha_alarma(fechaTemp);
+            cal.add(Calendar.HOUR_OF_DAY, time.getHour());
+            cal.add(Calendar.MINUTE, time.getMinute());
+        } else {
+            cal.add(Calendar.HOUR_OF_DAY, time.getCurrentHour());
+            cal.add(Calendar.MINUTE, time.getCurrentMinute());
         }
+        alarma.setFecha_alarma(cal.getTime());
 
         EditText textoAlarma = findViewById(R.id.nombreAlarmaTxt);
         alarma.setNombre(textoAlarma.getText().toString());
@@ -96,7 +96,6 @@ public class AddAlarmActivity extends AppCompatActivity {
             ArrayList<Alarm> temp = new ArrayList<>();
             temp.add(alarma);
             alarmasList.setAlarms(temp);
-
         }
 
         complexPreferences.putObject("Alarmas", alarmasList);
