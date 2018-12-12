@@ -107,7 +107,7 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
 
     private void actualizarPreferences(int position, @NonNull ViewHolder holder) {
 
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(holder.context , "MyPreferences", MODE_PRIVATE);
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(holder.context , "AlarmAppPreferences", MODE_PRIVATE);
         ListAlarms alarmasList = complexPreferences.getObject("Alarmas", ListAlarms.class);
         alarmasList.setAlarms(alarms);
         complexPreferences.putObject("Alarmas", alarmasList);

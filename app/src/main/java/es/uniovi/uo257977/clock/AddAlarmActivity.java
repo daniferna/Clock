@@ -87,7 +87,7 @@ public class AddAlarmActivity extends AppCompatActivity {
 
 
 
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "MyPreferences", MODE_PRIVATE);
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "AlarmAppPreferences", MODE_PRIVATE);
         ListAlarms alarmasList = complexPreferences.getObject("Alarmas", ListAlarms.class);
         if (alarmasList != null) {
             alarmasList.alarmas.add(alarma);

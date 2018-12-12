@@ -58,7 +58,7 @@ public class AlarmsFragment extends Fragment {
 
 
     private void cargarAlarmas() {
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getActivity().getApplicationContext(), "MyPreferences", MODE_PRIVATE);
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getActivity().getApplicationContext(), "AlarmAppPreferences", MODE_PRIVATE);
         ListAlarms alarmas = complexPreferences.getObject("Alarmas", ListAlarms.class);
         if(alarmas!=null)
              pasarAlarmas((alarmas).alarmas);

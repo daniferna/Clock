@@ -2,24 +2,18 @@ package es.uniovi.uo257977.clock;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 
+import com.db.chart.model.BarSet;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +25,6 @@ import es.uniovi.uo257977.clock.Fragments.StopwatchFragment;
 import es.uniovi.uo257977.clock.Fragments.TimerFragment;
 import es.uniovi.uo257977.clock.Logic.Alarm;
 import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
-import es.uniovi.uo257977.clock.Logic.ListAlarms;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     boolean needAnimate = true;
     static final int ALARM_REQUEST = 1;
+    private ComplexPreferences complexPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         bottomAppBar.replaceMenu(R.menu.navigation);
 
         context = this;
+
+        complexPreferences = ComplexPreferences.getComplexPreferences(context, "AlarmAppPreferences", MODE_PRIVATE);
 
         final ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -108,18 +104,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_scoreboard:
-                        //TODO Implementar Activity de la puntuacion
-                        break;
-                }
-                return true;
-            }
-        });
-
+        if (complexPreferences.getObject("Puntuacion", BarSet.class) == null) { // Primer inicio app
+            complexPreferences.putObject("Puntuacion", new BarSet());
+            complexPreferences.commit();
+        }
     }
 
 
