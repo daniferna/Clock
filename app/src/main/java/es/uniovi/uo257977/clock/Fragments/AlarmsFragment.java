@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -64,7 +62,6 @@ public class AlarmsFragment extends Fragment {
         ListAlarms alarmas = complexPreferences.getObject("Alarmas", ListAlarms.class);
         if(alarmas!=null)
              pasarAlarmas((alarmas).alarmas);
-
     }
 
 
