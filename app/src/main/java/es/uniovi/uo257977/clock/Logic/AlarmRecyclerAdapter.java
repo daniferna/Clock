@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -108,7 +110,13 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
             }
         });
 
-
+        holder.vibrar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Snackbar.make(buttonView, Boolean.toString(isChecked), Snackbar.LENGTH_SHORT).show();
+                alarms.get(position).setVibrar(isChecked);
+            }
+        });
     }
 
     private void actualizarPreferences(int position, @NonNull ViewHolder holder) {
@@ -134,16 +142,16 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
         TextView txtNombreAlarma;
         Button trashButton;
         Context context;
-        RadioButton vibrar;
+        CheckBox vibrar;
 
-        public ViewHolder(@NonNull View itemView,Context context) {
+        public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
             chipGroup = itemView.findViewById(R.id.chipGroup);
             switchAlarm = itemView.findViewById(R.id.switch_alarm);
             hourAlarmTxt = itemView.findViewById(R.id.hour_alarm_txt);
             txtNombreAlarma = itemView.findViewById(R.id.txtNombreAlarma);
             trashButton = itemView.findViewById(R.id.trash_btn_alarm);
-            vibrar= itemView.findViewById(R.id.radioButton);
+            vibrar= itemView.findViewById(R.id.checkBoxVibrar);
             this.context=context;
         }
     }
