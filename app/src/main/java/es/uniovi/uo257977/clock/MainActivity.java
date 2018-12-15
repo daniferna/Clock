@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
             complexPreferences.commit();
         }
 
+        viewPager.setOffscreenPageLimit(3); //Esta linea mantiene en memoria todos los fragments
+
     }
 
 

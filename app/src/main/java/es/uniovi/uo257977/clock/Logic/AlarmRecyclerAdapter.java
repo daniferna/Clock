@@ -156,6 +156,4 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
         }
     }
 
-
-
 }

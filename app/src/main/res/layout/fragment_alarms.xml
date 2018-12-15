@@ -6,17 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.AlarmsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_alarms"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scrollbars="vertical"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/recycler_view_item"
+        android:paddingBottom="60dp"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
