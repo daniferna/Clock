@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -40,6 +41,11 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
         diffResult.dispatchUpdatesTo(this);
     }
 
+    public void removeAlarm(int position){
+        alarms.remove(position);
+        notifyItemRemoved(position);
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,7 +55,7 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Alarm alarm = alarms.get(position);
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
         if (alarm.isActivada()){
             holder.switchAlarm.setChecked(true);
         }
@@ -118,6 +124,7 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
     public int getItemCount() {
         return alarms.size();
     }
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
 

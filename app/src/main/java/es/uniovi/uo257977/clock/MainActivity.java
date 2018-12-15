@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             complexPreferences.putObject("Puntuacion", new BarSet());
             complexPreferences.commit();
         }
+
     }
 
 
