@@ -34,7 +34,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alarm);
 
-        timePicker = findViewById(R.id.timePicker_addAlarm);
+        timePicker = findViewById(R.id.timePicker_timer);
         timePicker.setIs24HourView(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             //Arregla un bug de algunas versiones de Android que no ponen bien la hora en formato 24H
@@ -64,7 +64,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         Alarm alarma = new Alarm();
 
 
-        TimePicker time = findViewById(R.id.timePicker_addAlarm);
+        TimePicker time = findViewById(R.id.timePicker_timer);
         Calendar cal = Calendar.getInstance();
         cal.clear();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

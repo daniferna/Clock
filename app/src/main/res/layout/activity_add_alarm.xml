@@ -7,7 +7,7 @@
     tools:context=".AddAlarmActivity">
 
     <TimePicker
-        android:id="@+id/timePicker_addAlarm"
+        android:id="@+id/timePicker_timer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:theme="@android:style/Widget.Material.TimePicker"
@@ -27,7 +27,7 @@
         app:hintEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker_addAlarm">
+        app:layout_constraintTop_toBottomOf="@+id/timePicker_timer">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nombreAlarmaTxt"
