@@ -5,16 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -40,6 +43,11 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
         diffResult.dispatchUpdatesTo(this);
     }
 
+    public void removeAlarm(int position){
+        alarms.remove(position);
+        notifyItemRemoved(position);
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,7 +57,7 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Alarm alarm = alarms.get(position);
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
         if (alarm.isActivada()){
             holder.switchAlarm.setChecked(true);
         }
@@ -102,7 +110,13 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
             }
         });
 
-
+        holder.vibrar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Snackbar.make(buttonView, Boolean.toString(isChecked), Snackbar.LENGTH_SHORT).show();
+                alarms.get(position).setVibrar(isChecked);
+            }
+        });
     }
 
     private void actualizarPreferences(int position, @NonNull ViewHolder holder) {
@@ -119,6 +133,7 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
         return alarms.size();
     }
 
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         ChipGroup chipGroup;
@@ -127,20 +142,18 @@ public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolde
         TextView txtNombreAlarma;
         Button trashButton;
         Context context;
-        RadioButton vibrar;
+        CheckBox vibrar;
 
-        public ViewHolder(@NonNull View itemView,Context context) {
+        public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
             chipGroup = itemView.findViewById(R.id.chipGroup);
             switchAlarm = itemView.findViewById(R.id.switch_alarm);
             hourAlarmTxt = itemView.findViewById(R.id.hour_alarm_txt);
             txtNombreAlarma = itemView.findViewById(R.id.txtNombreAlarma);
             trashButton = itemView.findViewById(R.id.trash_btn_alarm);
-            vibrar= itemView.findViewById(R.id.radioButton);
+            vibrar= itemView.findViewById(R.id.checkBoxVibrar);
             this.context=context;
         }
     }
-
-
 
 }

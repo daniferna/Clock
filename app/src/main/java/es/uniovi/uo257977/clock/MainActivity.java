@@ -9,6 +9,7 @@ import android.view.View;
 import com.db.chart.model.BarSet;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -44,10 +45,16 @@ public class MainActivity extends AppCompatActivity {
         bottomAppBar = findViewById(R.id.bottom_app_bar);
 
         bottomAppBar.replaceMenu(R.menu.navigation);
-
         context = this;
 
         complexPreferences = ComplexPreferences.getComplexPreferences(context, "AlarmAppPreferences", MODE_PRIVATE);
+
+        bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "Work In Progress", Snackbar.LENGTH_SHORT).show();
+            }
+        });
 
         final ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -108,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
             complexPreferences.putObject("Puntuacion", new BarSet());
             complexPreferences.commit();
         }
+
+        viewPager.setOffscreenPageLimit(3); //Esta linea mantiene en memoria todos los fragments
+
     }
 
 
