@@ -58,7 +58,15 @@ public class AddAlarmActivity extends AppCompatActivity {
         intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, tonoPorDefecto);
         startActivityForResult(intentTono, TONE_PICKER);
     }
-
+    public void seleccionarTonoSpotifyAdd(View view) {
+        Intent intentTono = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+        Uri tonoPorDefecto = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
+        intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
+        intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Seleccionar tono");
+        intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, tonoPorDefecto);
+        startActivityForResult(intentTono, TONE_PICKER);
+    }
 
     public void añadirAlarma(View view) {
         Alarm alarma = new Alarm();
