@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:icon="@drawable/ic_alarm_black_24dp"
+        android:key="tono_por_defecto"
+        android:summary="Tono de la alarma por defecto"
+        android:title="Tono alarma" />
+</PreferenceScreen>
