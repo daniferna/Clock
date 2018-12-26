@@ -2,8 +2,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
+        android:icon="@drawable/ic_error_black_24dp"
+        android:key="preference_conceder_permisos"
+        android:summary="Muestra una ventana para conceder los permisos necesarios"
+        android:title="Conceder permisos" />
+
+    <Preference
         android:icon="@drawable/ic_alarm_black_24dp"
-        android:key="tono_por_defecto"
+        android:key="preference_seleccionar_tono"
         android:summary="Tono de la alarma por defecto"
         android:title="Tono alarma" />
 </PreferenceScreen>

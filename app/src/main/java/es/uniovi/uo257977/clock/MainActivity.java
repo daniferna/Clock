@@ -2,7 +2,9 @@ package es.uniovi.uo257977.clock;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import com.db.chart.model.BarSet;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        comprobacionDePermisos();
 
         fab = findViewById(R.id.fab);
         bottomAppBar = findViewById(R.id.bottom_app_bar);
@@ -136,6 +141,18 @@ public class MainActivity extends AppCompatActivity {
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
+    }
+
+    private void comprobacionDePermisos() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(this)) {
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Para funcionalidad completa conceda permisos", Snackbar.LENGTH_LONG);
+                snackbar.setAction("Conceder", v -> {
+                    startActivity(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS));
+                });
+                snackbar.show();
+            }
+        }
     }
 
 
