@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -31,11 +33,12 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.diogobernardino:williamchart:2.5.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1-beta01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1-beta01'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation project(path: ':complexPreferences')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference:1.0.0'
 
     //Las dependencias necesarias para spotify.
     implementation project(':spotify-app-remote-release-0.6.0')
@@ -43,5 +46,9 @@ dependencies {
 
     //Las dependencias necesarias para Volley
     implementation 'com.android.volley:volley:1.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+}
+repositories {
+    mavenCentral()
 }

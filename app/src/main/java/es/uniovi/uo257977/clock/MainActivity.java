@@ -6,21 +6,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-
-import org.json.*;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.db.chart.model.BarSet;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.spotify.android.appremote.api.ConnectionParams;
+import com.spotify.android.appremote.api.Connector;
+import com.spotify.android.appremote.api.SpotifyAppRemote;
+import com.spotify.protocol.types.Track;
 
 import java.util.ArrayList;
 
@@ -28,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -39,13 +39,6 @@ import es.uniovi.uo257977.clock.Logic.Alarm;
 import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
 
 //Dependencias de spotify
-
-import com.spotify.android.appremote.api.ConnectionParams;
-import com.spotify.android.appremote.api.Connector;
-import com.spotify.android.appremote.api.SpotifyAppRemote;
-import com.spotify.protocol.client.Subscription;
-import com.spotify.protocol.types.PlayerState;
-import com.spotify.protocol.types.Track;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,12 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         complexPreferences = ComplexPreferences.getComplexPreferences(context, "AlarmAppPreferences", MODE_PRIVATE);
 
-        bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(v, "Work In Progress", Snackbar.LENGTH_SHORT).show();
-            }
-        });
+        bottomAppBar.setNavigationOnClickListener(view -> startActivity(new Intent(this, SettingsActivity.class)));
 
         final ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -145,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         viewPager.setOffscreenPageLimit(3); //Esta linea mantiene en memoria todos los fragments
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
     }
 
