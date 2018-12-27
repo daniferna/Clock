@@ -21,6 +21,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
+        val preferenceSystemHour = findPreference("preference_modify_system_hour")
         val preferenceTono = findPreference("preference_seleccionar_tono")
         val preferencePermisos = findPreference("preference_conceder_permisos")
 
@@ -30,6 +31,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 preferenceTono.summary = "No disponible debido a ausencia de permisos"
             } else
                 preferencePermisos.isVisible = false
+
+        preferenceSystemHour.setOnPreferenceClickListener {
+            val intentHoraSistema = Intent(Settings.ACTION_DATE_SETTINGS)
+            startActivity(intentHoraSistema)
+            return@setOnPreferenceClickListener true
+        }
 
         preferenceTono.onPreferenceClickListener = Preference.OnPreferenceClickListener {
 

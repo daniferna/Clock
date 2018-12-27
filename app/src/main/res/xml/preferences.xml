@@ -2,6 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
+        android:icon="@drawable/ic_modify_settings_black_24dp"
+        android:key="preference_modify_system_hour"
+        android:summary="Modifica la hora del sistema"
+        android:title="Hora del sistema"
+        />
+
+    <Preference
         android:icon="@drawable/ic_error_black_24dp"
         android:key="preference_conceder_permisos"
         android:summary="Muestra una ventana para conceder los permisos necesarios"
