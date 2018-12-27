@@ -4,7 +4,8 @@
     package="es.uniovi.uo257977.clock">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -36,15 +37,17 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ScoreboardActivity"
-            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SettingsActivity"
-            android:theme="@style/SettingsTheme"
-            android:parentActivityName=".MainActivity"
             android:label="Ajustes"
-            ></activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/SettingsTheme" />
+        <activity
+            android:name=".Fragments.SettingsFragment$AboutActivity"
+            android:label="Acerca de" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

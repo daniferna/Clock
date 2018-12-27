@@ -8,6 +8,10 @@
     <string name="play">play</string>
     <string name="pause">pause</string>
     <string name="stop">stop</string>
+    <string name="description_about">Este es el proyecto final de la asignatura de Software para Dispositivos Moviles de:
+    \n Daniel Fernández Aller
+    \n Diego Trapiello Mendoza
+    \n Elena Puga Pascual</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

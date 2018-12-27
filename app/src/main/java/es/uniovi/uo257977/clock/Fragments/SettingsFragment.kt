@@ -2,15 +2,20 @@ package es.uniovi.uo257977.clock.Fragments
 
 
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import es.uniovi.uo257977.clock.R
+import mehdi.sakout.aboutpage.AboutPage
+import mehdi.sakout.aboutpage.Element
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -24,6 +29,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceSystemHour = findPreference("preference_modify_system_hour")
         val preferenceTono = findPreference("preference_seleccionar_tono")
         val preferencePermisos = findPreference("preference_conceder_permisos")
+        val preferenceAlarmVolume = findPreference("preference_set_volume")
+        val preferenceAbout = findPreference("preference_info")
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             if (!Settings.System.canWrite(context)){
@@ -35,6 +42,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceSystemHour.setOnPreferenceClickListener {
             val intentHoraSistema = Intent(Settings.ACTION_DATE_SETTINGS)
             startActivity(intentHoraSistema)
+
             return@setOnPreferenceClickListener true
         }
 
@@ -58,6 +66,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
             return@OnPreferenceClickListener true
         }
 
+        preferenceAlarmVolume.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            val audioManager = activity?.applicationContext?.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM, AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI)
+
+            return@OnPreferenceClickListener true
+        }
+
+        preferenceAbout.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            startActivity(Intent(context, AboutActivity::class.java))
+
+            return@OnPreferenceClickListener true
+        }
+
     }
 
 
@@ -66,6 +87,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val tonoSeleccionado : Uri = data?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI) ?: return
             this.tonoSeleccionado = tonoSeleccionado
             RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, tonoSeleccionado)
+        }
+    }
+
+    class AboutActivity : AppCompatActivity() {
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+
+            setContentView(AboutPage(this)
+                    .setImage(R.drawable.logo_escuela)
+                    .setDescription(getString(R.string.description_about))
+                    .addItem(Element().setTitle("Version: 1.0.0"))
+                    .addGitHub("daniferna", "Daniel Fernández Aller")
+                    .addGitHub("DiegoTrapiello", "Diego Trapiello Mendoza")
+                    .addGitHub("elenappuga", "Elena Puga Pascual")
+                    .create())
         }
     }
 

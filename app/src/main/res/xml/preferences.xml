@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference
-        android:icon="@drawable/ic_modify_settings_black_24dp"
-        android:key="preference_modify_system_hour"
-        android:summary="Modifica la hora del sistema"
-        android:title="Hora del sistema"
+    <PreferenceCategory
+        android:title="AJUSTES GENERALES"
         />
 
     <Preference
@@ -15,8 +12,38 @@
         android:title="Conceder permisos" />
 
     <Preference
+        android:icon="@drawable/ic_modify_settings_black_24dp"
+        android:key="preference_modify_system_hour"
+        android:summary="Modifica la hora del sistema"
+        android:title="Hora del sistema"
+        />
+
+    <PreferenceCategory
+        android:title="AJUSTES ALARMAS"
+        />
+
+    <Preference
         android:icon="@drawable/ic_alarm_black_24dp"
         android:key="preference_seleccionar_tono"
         android:summary="Tono de la alarma por defecto"
         android:title="Tono alarma" />
+
+    <Preference
+        android:icon="@drawable/ic_volume_up_black_24dp"
+        android:key="preference_set_volume"
+        android:summary="Establece el volumen de la alarma"
+        android:title="Volumen alarma"
+        />
+
+    <PreferenceCategory
+        android:title="OTRO"
+        />
+
+    <Preference
+        android:icon="@drawable/ic_info_black_24dp"
+        android:key="preference_info"
+        android:summary="Informacion acerca de la aplicacion"
+        android:title="Acerca de"
+        />
+
 </PreferenceScreen>
