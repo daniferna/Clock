@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="AJUSTES GENERALES"
-        />
-
     <Preference
         android:icon="@drawable/ic_error_black_24dp"
         android:key="preference_conceder_permisos"
         android:summary="Muestra una ventana para conceder los permisos necesarios"
         android:title="Conceder permisos" />
+
+    <PreferenceCategory
+        android:title="AJUSTES GENERALES"
+        />
+
+    <SwitchPreference
+        android:icon="@drawable/ic_wb_sunny_black_24dp"
+        android:key="preference_informe_mañana"
+        android:summary="Se enviara una notificacion con la informacion del tiempo si la alarma es apagada entre las 06:00 y las 09:30"
+        android:title="Notificacion matinal"
+        android:defaultValue="true"
+        />
 
     <Preference
         android:icon="@drawable/ic_modify_settings_black_24dp"

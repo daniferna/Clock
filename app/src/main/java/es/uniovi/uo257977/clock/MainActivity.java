@@ -45,6 +45,8 @@ import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String SHARED_PREF_KEY = "clock_sdm";
+
     BottomAppBar bottomAppBar;
     FloatingActionButton fab;
     Context context;

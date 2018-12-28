@@ -13,6 +13,8 @@ import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
+import es.uniovi.uo257977.clock.MainActivity.SHARED_PREF_KEY
 import es.uniovi.uo257977.clock.R
 import mehdi.sakout.aboutpage.AboutPage
 import mehdi.sakout.aboutpage.Element
@@ -25,12 +27,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
+        val sharedPreferences = context!!.getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE)
 
         val preferenceSystemHour = findPreference("preference_modify_system_hour")
         val preferenceTono = findPreference("preference_seleccionar_tono")
         val preferencePermisos = findPreference("preference_conceder_permisos")
         val preferenceAlarmVolume = findPreference("preference_set_volume")
         val preferenceAbout = findPreference("preference_info")
+        val preferenceMorningNotification = findPreference("preference_informe_mañana") as SwitchPreference
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             if (!Settings.System.canWrite(context)){
@@ -77,6 +81,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             startActivity(Intent(context, AboutActivity::class.java))
 
             return@OnPreferenceClickListener true
+        }
+
+        preferenceMorningNotification.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            return@OnPreferenceClickListener sharedPreferences.edit().
+                    putBoolean("notificacion_matinal", preferenceMorningNotification.isChecked).commit()
         }
 
     }
