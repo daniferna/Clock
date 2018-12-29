@@ -5,10 +5,14 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import br.com.kots.mob.complex.preferences.ComplexPreferences;
 import es.uniovi.uo257977.clock.Logic.Alarm;
@@ -43,15 +48,28 @@ public class AddAlarmActivity extends AppCompatActivity {
         myFab = findViewById(R.id.fab_addAlarm);
         myFab.setOnClickListener(v -> añadirAlarma(v));
 
+        checkearPermisos();
+
+    }
+
+    private void checkearPermisos() {
+        MaterialButton buttonTone = findViewById(R.id.btn_seleccionarTonoAdd);
+        ImageButton buttonSpotify = findViewById(R.id.imgButtonToneSpotify);
+        TextView txtAlertaPermisos = findViewById(R.id.txtAlertaPermisosAdd);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            if (!Settings.System.canWrite(this)) {
+                buttonTone.setEnabled(false);
+                buttonSpotify.setEnabled(false);
+                txtAlertaPermisos.setVisibility(View.VISIBLE);
+            }
     }
 
     public void seleccionarTonoAdd(View view) {
         Intent intentTono = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-        Uri tonoPorDefecto = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
         intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
         intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Seleccionar tono");
-        intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, tonoPorDefecto);
+        intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
         startActivityForResult(intentTono, TONE_PICKER);
     }
     public void seleccionarTonoSpotifyAdd(View view) {
@@ -62,6 +80,15 @@ public class AddAlarmActivity extends AppCompatActivity {
         intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Seleccionar tono");
         intentTono.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, tonoPorDefecto);
         startActivityForResult(intentTono, TONE_PICKER);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == TONE_PICKER && resultCode == RESULT_OK){
+            Uri tonoSeleccionado = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+            if (tonoSeleccionado == null) return;
+            RingtoneManager.setActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM, tonoSeleccionado);
+        }
     }
 
     public void añadirAlarma(View view) {

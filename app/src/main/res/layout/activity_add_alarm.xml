@@ -38,7 +38,7 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_seleccionarTonoAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
     </com.google.android.material.chip.ChipGroup>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imgButtonToneSpotify"
         style="@android:style/Widget.Material.ImageButton"
         android:layout_width="47dp"
         android:layout_height="46dp"
@@ -168,11 +168,28 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="?android:attr/colorBackground"
+        android:contentDescription="@string/spotify_icon"
         app:layout_constraintEnd_toStartOf="@+id/fab_addAlarm"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/btn_seleccionarTonoAdd"
         app:layout_constraintTop_toBottomOf="@+id/chipGroup_addAlarm"
-        app:srcCompat="@drawable/ic_spotify_1"
-        android:contentDescription="@string/spotify_icon" />
+        app:srcCompat="@drawable/ic_spotify_1" />
+
+    <TextView
+        android:id="@+id/txtAlertaPermisosAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Seleccionar tono requiere permisos"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_seleccionarTonoAdd"
+        app:layout_constraintTop_toBottomOf="@+id/imgButtonToneSpotify"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package es.uniovi.uo257977.clock;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -16,6 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.db.chart.model.BarSet;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     boolean needAnimate = true;
     static final int ALARM_REQUEST = 1;
+    private SharedPreferences sharedPreferences;
     private ComplexPreferences complexPreferences;
 
     //credenciales spotify
@@ -61,13 +65,21 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MyTag";
     RequestQueue mRequestQueue;  // Assume this exists.
+    private boolean noDialogUbicacion = false;
+
+    //Localizacion
+    FusedLocationProviderClient fusedLocationProviderClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPreferences = getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         comprobacionDePermisos();
+        obtencionDeUbicacion();
 
         fab = findViewById(R.id.fab);
         bottomAppBar = findViewById(R.id.bottom_app_bar);
@@ -145,7 +157,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void obtencionDeUbicacion() {
+        //TODO
+    }
+
     private void comprobacionDePermisos() {
+        //Permiso de modificacion de ajustes del sistema
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.System.canWrite(this)) {
                 Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Para funcionalidad completa conceda permisos", Snackbar.LENGTH_LONG);
@@ -156,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 
     private void changeFromAddToPlayAnimate() {
         if (needAnimate) {

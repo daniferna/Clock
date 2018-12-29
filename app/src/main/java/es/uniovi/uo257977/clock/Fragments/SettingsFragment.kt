@@ -22,8 +22,10 @@ import mehdi.sakout.aboutpage.Element
 class SettingsFragment : PreferenceFragmentCompat() {
 
     val SELECCION_TONO = 10
-    val CONCEDER_PERMISOS = 11
+    val CONCEDER_PERMISO_AJUSTES = 11
     var tonoSeleccionado : Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+
+    private val PERMISO_LOCALIZACION = 100
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -63,10 +65,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         preferencePermisos.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                startActivityForResult(Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS), CONCEDER_PERMISOS)
-                activity?.onBackPressed()
-            }
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                return@OnPreferenceClickListener true
+
+            startActivityForResult(Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS), CONCEDER_PERMISO_AJUSTES)
+            activity?.onBackPressed()
+
             return@OnPreferenceClickListener true
         }
 
