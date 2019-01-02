@@ -46,7 +46,7 @@ public class AddAlarmActivity extends AppCompatActivity {
             timePicker.setHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 
         myFab = findViewById(R.id.fab_addAlarm);
-        myFab.setOnClickListener(v -> añadirAlarma(v));
+        myFab.setOnClickListener(this::añadirAlarma);
 
         checkearPermisos();
 

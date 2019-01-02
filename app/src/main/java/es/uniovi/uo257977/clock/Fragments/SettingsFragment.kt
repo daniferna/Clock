@@ -1,19 +1,26 @@
 package es.uniovi.uo257977.clock.Fragments
 
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
+import es.uniovi.uo257977.clock.MainActivity
+import es.uniovi.uo257977.clock.MainActivity.REQUEST_PERMISSION_LOCATION_COARSE
 import es.uniovi.uo257977.clock.MainActivity.SHARED_PREF_KEY
 import es.uniovi.uo257977.clock.R
 import mehdi.sakout.aboutpage.AboutPage
@@ -24,8 +31,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     val SELECCION_TONO = 10
     val CONCEDER_PERMISO_AJUSTES = 11
     var tonoSeleccionado : Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-
-    private val PERMISO_LOCALIZACION = 100
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -42,8 +47,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (!Settings.System.canWrite(context)){
                 preferenceTono.isEnabled = false
                 preferenceTono.summary = "No disponible debido a ausencia de permisos"
-            } else
+            } else if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED)
                 preferencePermisos.isVisible = false
+
+        if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED){
+            preferenceMorningNotification.isEnabled = false
+            preferenceMorningNotification.summary = "No disponible debido a ausencia de permisos"
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.System.canWrite(context))
+            preferencePermisos.isVisible = false
 
         preferenceSystemHour.setOnPreferenceClickListener {
             val intentHoraSistema = Intent(Settings.ACTION_DATE_SETTINGS)
@@ -65,11 +76,41 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         preferencePermisos.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-                return@OnPreferenceClickListener true
 
-            startActivityForResult(Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS), CONCEDER_PERMISO_AJUSTES)
-            activity?.onBackPressed()
+            var hePedidoPermisos = true
+            val dsad = 0
+
+            if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                                Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                    val alertBuilder = AlertDialog.Builder(requireContext())
+                    alertBuilder.setCancelable(true)
+                    alertBuilder.setMessage("El permiso de ubicacion es neceario para poder mostrar la informacion del tiempo al apagar las alarmas")
+                    alertBuilder.setPositiveButton("Conceder") { dialog, which -> ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_PERMISSION_LOCATION_COARSE) }
+                    alertBuilder.setNegativeButton("No conceder") { dialog, which ->
+                        run {
+                            dialog.dismiss()
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                                if (!Settings.System.canWrite(context))
+                                    startActivityForResult(Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS), CONCEDER_PERMISO_AJUSTES)
+                            this.requireActivity().finish()
+                        }
+                    }
+                    alertBuilder.show()
+                } else {
+                    ActivityCompat.requestPermissions(requireActivity(),
+                            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                            MainActivity.REQUEST_PERMISSION_LOCATION_COARSE)
+                }
+            } else
+                hePedidoPermisos = false
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !hePedidoPermisos)
+                if (!Settings.System.canWrite(context))
+                    startActivityForResult(Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS), CONCEDER_PERMISO_AJUSTES)
+
+            if (!hePedidoPermisos)
+                requireActivity().finish()
 
             return@OnPreferenceClickListener true
         }

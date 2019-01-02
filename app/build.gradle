@@ -58,6 +58,9 @@ dependencies {
     implementation "org.jetbrains.anko:anko:$anko_version"
     implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
 
+    //Target Promp
+    implementation 'uk.co.samuelwall:material-tap-target-prompt:2.14.0'
+
 }
 repositories {
     mavenCentral()
