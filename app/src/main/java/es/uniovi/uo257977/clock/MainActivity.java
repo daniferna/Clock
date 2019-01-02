@@ -1,8 +1,11 @@
 package es.uniovi.uo257977.clock;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -30,7 +33,10 @@ import com.spotify.protocol.types.Track;
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.preference.PreferenceManager;
@@ -43,12 +49,18 @@ import es.uniovi.uo257977.clock.Fragments.StopwatchFragment;
 import es.uniovi.uo257977.clock.Fragments.TimerFragment;
 import es.uniovi.uo257977.clock.Logic.Alarm;
 import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground;
 
 //Dependencias de spotify
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String SHARED_PREF_KEY = "clock_sdm";
+    public static final int REQUEST_PERMISSION_LOCATION_COARSE = 1500;
+
+    private static final String IS_INFO_ADD_ALARM_REQUIRED = "info_tap_target_add_alarm";
+    private static final String IS_INFO_CRONO_REQUIRED = "info_tap_target_crono_play_pause";
 
     BottomAppBar bottomAppBar;
     FloatingActionButton fab;
@@ -76,8 +88,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferences = getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
+        context = this;
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        sharedPreferences = getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
+
         comprobacionDePermisos();
         obtencionDeUbicacion();
 
@@ -85,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         bottomAppBar = findViewById(R.id.bottom_app_bar);
 
         bottomAppBar.replaceMenu(R.menu.navigation);
-        context = this;
 
         complexPreferences = ComplexPreferences.getComplexPreferences(context, "AlarmAppPreferences", MODE_PRIVATE);
 
@@ -133,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     case 1: //Stopwatch
                         changeFromAddToPlayAnimate();
                         needAnimate = true;
+                        mostrarInformacionPlay();
                         break;
                     case 2: //Timer
                         needAnimate = false;
@@ -155,17 +170,71 @@ public class MainActivity extends AppCompatActivity {
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
+        mostrarInformacionAñadirAlarma();
+    }
+
+    private void mostrarInformacionAñadirAlarma() {
+        //Material Tap Target
+        if (sharedPreferences.getBoolean(IS_INFO_ADD_ALARM_REQUIRED, true))
+            new MaterialTapTargetPrompt.Builder(this)
+                    .setTarget(R.id.fab)
+                    .setPrimaryText("Añadir alarma")
+                    .setSecondaryText("Pulsa aqui si quieres añadir una alarma")
+                    .setPromptStateChangeListener((prompt, state) -> {
+                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED) {
+                            sharedPreferences.edit().putBoolean(IS_INFO_ADD_ALARM_REQUIRED, false).apply();
+                            comprobacionDePermisos();
+                        }
+                    })
+                    .setBackButtonDismissEnabled(true)
+                    .setPromptBackground(new RectanglePromptBackground())
+                    .show();
+    }
+
+    private void mostrarInformacionPlay() {
+        //Material Tap Target
+        if (sharedPreferences.getBoolean(IS_INFO_CRONO_REQUIRED, true))
+            new MaterialTapTargetPrompt.Builder(this)
+                    .setTarget(R.id.fab)
+                    .setPrimaryText("Comenzar/Pausar")
+                    .setSecondaryText("Pulsa aqui si quieres encender/pausar el cronometro")
+                    .setPromptStateChangeListener((prompt, state) -> {
+                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED)
+                            sharedPreferences.edit().putBoolean(IS_INFO_CRONO_REQUIRED, false).apply();
+                    })
+                    .setBackButtonDismissEnabled(true)
+                    .setPromptBackground(new RectanglePromptBackground())
+                    .show();
     }
 
     private void obtencionDeUbicacion() {
         //TODO
     }
 
-    private void comprobacionDePermisos() {
+    protected void comprobacionDePermisos() {
+        //Permiso de ubicacion
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                Activity activity = this;
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                alertBuilder.setCancelable(true);
+                alertBuilder.setMessage("El permiso de ubicacion es neceario para poder mostrar la informacion del tiempo al apagar las alarmas");
+                alertBuilder.setPositiveButton("Conceder", (dialog, which) ->
+                        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION_COARSE));
+                alertBuilder.setNegativeButton("No conceder", (dialog, which) -> dialog.dismiss());
+                alertBuilder.show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        REQUEST_PERMISSION_LOCATION_COARSE);
+            }
+        }
+
         //Permiso de modificacion de ajustes del sistema
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.System.canWrite(this)) {
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Para funcionalidad completa conceda permisos", Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Necesario permiso para poder modificar tono", Snackbar.LENGTH_LONG);
                 snackbar.setAction("Conceder", v -> {
                     startActivity(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS));
                 });
