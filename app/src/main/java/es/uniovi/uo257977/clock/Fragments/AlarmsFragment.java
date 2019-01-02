@@ -89,5 +89,4 @@ public class AlarmsFragment extends Fragment {
              pasarAlarmas((alarmas).alarmas);
     }
 
-
 }

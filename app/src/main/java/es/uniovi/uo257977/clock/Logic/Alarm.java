@@ -1,12 +1,15 @@
 package es.uniovi.uo257977.clock.Logic;
 
-import android.content.SharedPreferences;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Alarm implements Parcelable {
@@ -18,11 +21,15 @@ public class Alarm implements Parcelable {
     private String sonido;
     private Boolean activada = true;
     private DIAS_ALARMA[] diasAlarma;
+    private List<Intent> intentsAlarma = new ArrayList<>();
 
     public boolean isActivada() {
         return activada;
     }
 
+    public List<Intent> getIntents(){ return intentsAlarma;}
+
+    public void setIntents(List<Intent> intents) {this.intentsAlarma= intents;}
 
     public enum DIAS_ALARMA implements Parcelable {LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO;
 
