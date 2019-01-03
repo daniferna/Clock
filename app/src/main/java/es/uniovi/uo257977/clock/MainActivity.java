@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -286,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
                 RecyclerView viewAlarmas = findViewById(R.id.recycler_alarms);
                 ArrayList<Alarm> alarmasExtra = data.getExtras().getParcelableArrayList("Alarmas");
                 ((AlarmRecyclerAdapter) viewAlarmas.getAdapter()).updateAlarms(alarmasExtra);
+              //  Snackbar.make(viewAlarmas, "Alarma creada correctamente", Snackbar.LENGTH_SHORT).show();
             }
         }
     }

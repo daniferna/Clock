@@ -9,7 +9,7 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <application
         android:allowBackup="true"
         android:appComponentFactory="whateverString"
@@ -49,6 +49,14 @@
         <activity
             android:name=".Fragments.SettingsFragment$AboutActivity"
             android:label="Acerca de" />
+        <receiver android:name=".Logic.AlarmReceiver"/>
+        <!-- Start the Service if applicable on boot -->
+        <receiver android:name=".Logic.OnBootReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

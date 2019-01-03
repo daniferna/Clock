@@ -26,4 +26,6 @@
     <string name="sabado_short">S</string>
     <string name="domingo_short">D</string>
     <string name="spotify_icon">Spotify icon</string>
+    <string name="default_notification_channel_id">defaultChannelId</string>
+    <string name="default_notification_channel_title">defaultNotificationChannel</string>
 </resources>
