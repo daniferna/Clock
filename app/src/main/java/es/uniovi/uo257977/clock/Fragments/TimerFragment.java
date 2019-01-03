@@ -160,7 +160,6 @@ public class TimerFragment extends Fragment {
                     public void onFinish() {
                         isRunnig = false;
                         isPaused = false;
-                        countDownTimer.cancel();
                     }
                 }.start();
             }
