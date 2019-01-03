@@ -61,6 +61,12 @@ dependencies {
     //Target Promp
     implementation 'uk.co.samuelwall:material-tap-target-prompt:2.14.0'
 
+    //Progress Bar
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+
+    //Numbre picker
+    implementation "com.github.StephenVinouze:MaterialNumberPicker:1.0.5"
+
 }
 repositories {
     mavenCentral()

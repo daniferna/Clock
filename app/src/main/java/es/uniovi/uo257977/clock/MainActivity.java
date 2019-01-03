@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -99,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         fab = findViewById(R.id.fab);
         bottomAppBar = findViewById(R.id.bottom_app_bar);
 
+        cambiarListenerAlarms();
+
         bottomAppBar.replaceMenu(R.menu.navigation);
 
         complexPreferences = ComplexPreferences.getComplexPreferences(context, "AlarmAppPreferences", MODE_PRIVATE);
@@ -143,14 +144,17 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case 0: // Alarms
                         changeFromPlayToAddAnimate();
+                        cambiarListenerAlarms();
                         break;
                     case 1: //Stopwatch
                         changeFromAddToPlayAnimate();
                         needAnimate = true;
                         mostrarInformacionPlay();
+                        cambiarListenerStopwatch();
                         break;
                     case 2: //Timer
                         needAnimate = false;
+                        cambiarListenerTimer();
                         break;
                 }
             }
@@ -171,6 +175,19 @@ public class MainActivity extends AppCompatActivity {
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         mostrarInformacionAñadirAlarma();
+    }
+
+    private void cambiarListenerTimer() {
+        TimerFragment fragment = (TimerFragment)getSupportFragmentManager().getFragments().get(3);
+        fragment.setOnClickFabPlay(fab);
+    }
+
+    private void cambiarListenerStopwatch() {
+        fab.setOnClickListener(null);
+    }
+
+    private void cambiarListenerAlarms() {
+        fab.setOnClickListener(v -> startActivityForResult(new Intent(this, AddAlarmActivity.class), ALARM_REQUEST));
     }
 
     private void mostrarInformacionAñadirAlarma() {
@@ -255,10 +272,6 @@ public class MainActivity extends AppCompatActivity {
         AnimatedVectorDrawableCompat drawable = AnimatedVectorDrawableCompat.create(getApplicationContext(), R.drawable.from_play_to_add);
         fab.setImageDrawable(drawable);
         drawable.start();
-    }
-
-    public void clickFab(View view) {
-        startActivityForResult(new Intent(this, AddAlarmActivity.class), ALARM_REQUEST);
     }
 
     public void scoreboardClick(MenuItem item) {

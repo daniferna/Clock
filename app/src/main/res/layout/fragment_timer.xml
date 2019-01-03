@@ -6,121 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.TimerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
-    <Button
-        android:id="@+id/playbt"
-        android:layout_width="125dp"
-        android:layout_height="72dp"
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/materialProgressBar"
+        style="@style/Widget.MaterialProgressBar.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/play"
+        android:indeterminate="false"
+        android:max="100"
+        android:minWidth="350dp"
+        android:minHeight="350dp"
+        android:progress="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dosPuntos"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35000002"
+        app:mpb_showProgressBackground="true" />
 
-    <Button
-        android:id="@+id/pausebt"
-        android:layout_width="124dp"
-        android:layout_height="68dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabStopTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/pause"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="64dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_stop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playbt"
-        app:layout_constraintVertical_bias="0.071" />
-
-    <Button
-        android:id="@+id/stop"
-        android:layout_width="122dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/stop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pausebt"
-        app:layout_constraintVertical_bias="0.161" />
-
-    <EditText
-        android:id="@+id/minutes"
-        android:layout_width="74dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:text="@string/cero"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/dosPuntos"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14" />
+        app:layout_constraintTop_toBottomOf="@+id/materialProgressBar" />
 
-    <EditText
-        android:id="@+id/seconds"
-        android:layout_width="81dp"
-        android:layout_height="107dp"
-        android:layout_marginStart="8dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPauseTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:longClickable="false"
-        android:screenReaderFocusable="false"
-        android:text="@string/cero"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textColorLink="@color/accent"
-        android:textSize="60sp"
+        android:layout_marginBottom="64dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_pause"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.728"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.144" />
+        app:layout_constraintTop_toBottomOf="@+id/materialProgressBar" />
 
-    <EditText
-        android:id="@+id/dosPuntos"
-        android:layout_width="28dp"
-        android:layout_height="107dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:cursorVisible="false"
-        android:editable="false"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:inputType="textPersonName"
-        android:text=":"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textIsSelectable="false"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/seconds"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
+    <TextView
+        android:id="@+id/txtTimer"
+        style="@style/Base.TextAppearance.AppCompat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="@+id/materialProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/materialProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/materialProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/materialProgressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
