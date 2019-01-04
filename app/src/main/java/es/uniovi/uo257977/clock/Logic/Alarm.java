@@ -19,6 +19,7 @@ public class Alarm implements Parcelable {
     private boolean vibrar;
     private String nombre;
     private String sonido;
+    private Boolean spotify;
     private Boolean activada = true;
     private DIAS_ALARMA[] diasAlarma;
     private List<Intent> intentsAlarma = new ArrayList<>();
@@ -81,6 +82,7 @@ public class Alarm implements Parcelable {
         sonido = in.readString();
         diasAlarma = in.createTypedArray(DIAS_ALARMA.CREATOR);
         activada=in.readByte()!=0;
+        spotify=in.readByte()!=0;
     }
 
     @Override
@@ -92,6 +94,7 @@ public class Alarm implements Parcelable {
         dest.writeString(sonido);
         dest.writeTypedArray(diasAlarma, flags);
         dest.writeByte((byte) (activada ? 1 : 0));
+        dest.writeByte((byte) (spotify ? 1 : 0));
     }
 
     @Override
@@ -145,6 +148,14 @@ public class Alarm implements Parcelable {
 
     public int getID() {
         return ID;
+    }
+
+    public Boolean getSpotify() {
+        return spotify;
+    }
+
+    public void setSpotify(Boolean spotify) {
+        this.spotify = spotify;
     }
 
     public void cambiarEstado(){
