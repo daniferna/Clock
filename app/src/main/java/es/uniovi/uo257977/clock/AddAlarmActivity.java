@@ -127,8 +127,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         alarma.setFecha_alarma(cal.getTime());
         
         EditText textoAlarma = findViewById(R.id.nombreAlarmaTxt);
-        if (!textoAlarma.getText().toString().isEmpty()) ;
-            alarma.setNombre(textoAlarma.getText().toString());
+        alarma.setNombre(textoAlarma.getText().toString());
 
 
         ChipGroup botonesDias = findViewById(R.id.chipGroup_addAlarm);

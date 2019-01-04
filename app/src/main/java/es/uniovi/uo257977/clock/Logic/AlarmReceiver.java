@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -28,6 +29,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d("Notificacion","Entra");
         //Cargar las alarmas de las shared preferences
         List<Alarm> alarmas = cargarSharedPreferences(context);
 
@@ -74,7 +76,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             }
             builder = new NotificationCompat.Builder(context, id);
             intent = new Intent(context, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder.setContentTitle(aMessage)                            // required
                     .setSmallIcon(android.R.drawable.ic_popup_reminder)   // required
@@ -90,7 +92,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         else {
             builder = new NotificationCompat.Builder(context, id);
             intent = new Intent(context, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder.setContentTitle(aMessage)                            // required
                     .setSmallIcon(android.R.drawable.ic_popup_reminder)   // required
@@ -107,6 +109,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
         Notification notification = builder.build();
         notifManager.notify(NOTIFY_ID, notification);
+        AlarmIntentUtil.añadirAlarmManager(alarm,context);
 
     }
     }

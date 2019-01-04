@@ -55,6 +55,7 @@ public class AlarmIntentUtil {
                     break;
             }
         alarma.setIntents(intents);
+        Log.d("Intents","Tiene : " + alarma.getIntents().size());
     }
 
     private static Intent scheduleAlarm(int dayOfWeek, Context context, Alarm alarma) {
@@ -72,10 +73,10 @@ public class AlarmIntentUtil {
 
         // Creo un intent que recibira la clase AlarmReceiver
         Intent myIntent = new Intent(context, AlarmReceiver.class);
-        PendingIntent yourIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
+        PendingIntent yourIntent = PendingIntent.getBroadcast(context, (int)System.currentTimeMillis(), myIntent, 0);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, yourIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), yourIntent);
         Log.d("Fecha",calendar.getTime().toString());
         return myIntent;
     }
