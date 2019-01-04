@@ -1,6 +1,5 @@
 package es.uniovi.uo257977.clock.Logic;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -19,7 +18,7 @@ public class Alarm implements Parcelable {
     private boolean vibrar;
     private String nombre;
     private String sonido;
-    private Boolean spotify;
+    private Boolean spotify = false;
     private Boolean activada = true;
     private DIAS_ALARMA[] diasAlarma;
     private List<Intent> intentsAlarma = new ArrayList<>();
@@ -159,18 +158,10 @@ public class Alarm implements Parcelable {
     }
 
     public void cambiarEstado(){
-        if (activada){
-            activada = false;
-        }
-        else
-            activada = true;
+        activada = !activada;
     }
 
     public void cambiarVibracion(){
-        if (vibrar){
-            vibrar = false;
-        }
-        else
-            vibrar = true;
+        vibrar = !vibrar;
     }
 }

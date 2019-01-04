@@ -23,7 +23,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
@@ -126,7 +125,7 @@ public class AddAlarmActivity extends AppCompatActivity {
             cal.add(Calendar.MINUTE, time.getCurrentMinute());
         }
         alarma.setFecha_alarma(cal.getTime());
-
+        
         EditText textoAlarma = findViewById(R.id.nombreAlarmaTxt);
         if (!textoAlarma.getText().toString().isEmpty()) ;
             alarma.setNombre(textoAlarma.getText().toString());

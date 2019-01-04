@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
@@ -84,7 +83,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent)
                     .setTicker(aMessage)
-                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
             Log.d("Notification","Entro por aqui");
         }
         else {
@@ -101,7 +101,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                     .setTicker(aMessage)
                     .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
                     .setPriority(Notification.PRIORITY_HIGH)
-                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
                     Log.d("Notification","Entro por aca");
         }
 
