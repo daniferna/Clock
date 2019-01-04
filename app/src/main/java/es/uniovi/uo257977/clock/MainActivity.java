@@ -70,13 +70,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private ComplexPreferences complexPreferences;
 
-    //credenciales spotify
-    private static final String CLIENT_ID = "f354fa8aa2dc4a549b0c211d355e6486";
-    private static final String REDIRECT_URI = "testschema://callback";
-    private SpotifyAppRemote mSpotifyAppRemote;
 
-    public static final String TAG = "MyTag";
-    RequestQueue mRequestQueue;  // Assume this exists.
+
     private boolean noDialogUbicacion = false;
 
     //Localizacion
@@ -177,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
 
         mostrarInformacionAñadirAlarma();
     }
+
+
 
     private void cambiarListenerTimer() {
         TimerFragment fragment = (TimerFragment)getSupportFragmentManager().getFragments().get(3);
@@ -293,95 +290,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ConnectionParams connectionParams = new ConnectionParams.Builder(CLIENT_ID)
-                        .setRedirectUri(REDIRECT_URI)
-                        .showAuthView(true)
-                        .build();
-        SpotifyAppRemote.connect(this, connectionParams,
-                new Connector.ConnectionListener() {
 
-                    @Override
-                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("MainActivity2", "Connected!!");
-                        getPlayList();
-                        // Now you can start interacting with App Remote
-                   //     connected();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        Log.e("MainActivity2.0", throwable.getMessage(), throwable);
-
-                    }
-                });
-
-
-    }
-
-
-    private void getPlayList(){
-
-        String url = "https://api.spotify.com/v1/playlists/59ZbFPES4DQwEjBpWHzrtC";
-
-
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-        Log.d("vamoh a veh","Response is: ");
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-
-                    // Display the first 500 characters of the response string.
-
-                    Log.d("vamoh a veh222","Response is: 2 ");
-
-                }
-            }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // mTextView.setText("That didn't work!");
-                Log.d("vamoh a veh3", error.getMessage()+ " "+ error.getCause());
-            }
-            }
-             );
-
-        queue.add(stringRequest);
-
-// Set the tag on the request.
-        stringRequest.setTag(TAG);
-
-// Add the request to the RequestQueue.
-        mRequestQueue.add(stringRequest);
-    }
-    private void connected() {
-
-        // Play a playlist
-        mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
-        mSpotifyAppRemote.getPlayerApi()
-                .subscribeToPlayerState()
-                .setEventCallback(playerState -> {
-                    final Track track = playerState.track;
-                    if (track != null) {
-                        Log.d("MainActivity", track.name + " by " + track.artist.name);
-                    }
-                });
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-    }
 }

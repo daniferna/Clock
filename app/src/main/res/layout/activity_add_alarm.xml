@@ -169,6 +169,7 @@
         android:layout_marginEnd="8dp"
         android:backgroundTint="?android:attr/colorBackground"
         android:contentDescription="@string/spotify_icon"
+        android:onClick="spotifyAlarm"
         app:layout_constraintEnd_toStartOf="@+id/fab_addAlarm"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/btn_seleccionarTonoAdd"
