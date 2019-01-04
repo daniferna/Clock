@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,6 +21,8 @@ public class OnBootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d("BOOT","ANTES");
+        Toast.makeText(context,"Esto es en el on boot,antes de añadir alarmas",Toast.LENGTH_LONG);
         ArrayList<Alarm> alarmas= AlarmIntentUtil.cargarSharedPreferences(context);
         if (alarmas!=null){
             for (Alarm alarm:alarmas) {
@@ -28,6 +31,8 @@ public class OnBootReceiver extends BroadcastReceiver {
             }
         }
         AlarmIntentUtil.actualizarPreferences(context,alarmas);
+        Toast.makeText(context,"Esto es en el on boot,despues de añadir alarmas",Toast.LENGTH_LONG);
+        Log.d("BOOT","DESPUES");
 
     }
 

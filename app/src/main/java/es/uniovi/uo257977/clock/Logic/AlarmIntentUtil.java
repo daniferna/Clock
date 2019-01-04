@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,7 +62,8 @@ public class AlarmIntentUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(alarma.getFecha_alarma());
         calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
-        calendar.set(Calendar.SECOND,20);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.YEAR,Calendar.getInstance().get(Calendar.YEAR));
 
         // Check we aren't setting it in the past which would trigger it to fire instantly
         if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
@@ -73,7 +75,8 @@ public class AlarmIntentUtil {
         PendingIntent yourIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, yourIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, yourIntent);
+        Log.d("Fecha",calendar.getTime().toString());
         return myIntent;
     }
 

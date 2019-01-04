@@ -6,7 +6,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -41,7 +44,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     private void notificacionAlarma(Alarm alarm,Context context,Intent intent) {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
-        createNotification("Test Alarma: "+ df.format(alarm.getFecha_alarma()) ,context,alarm);
+        createNotification(df.format(alarm.getFecha_alarma()) + "Nombre Alarma:" + alarm.getNombre() ,context,alarm);
 
     }
 
@@ -82,6 +85,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                     .setContentIntent(pendingIntent)
                     .setTicker(aMessage)
                     .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            Log.d("Notification","Entro por aqui");
         }
         else {
             builder = new NotificationCompat.Builder(context, id);
@@ -96,9 +100,13 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                     .setContentIntent(pendingIntent)
                     .setTicker(aMessage)
                     .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
-                    .setPriority(Notification.PRIORITY_HIGH);
+                    .setPriority(Notification.PRIORITY_HIGH)
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
+                    Log.d("Notification","Entro por aca");
         }
+
         Notification notification = builder.build();
         notifManager.notify(NOTIFY_ID, notification);
+
     }
     }

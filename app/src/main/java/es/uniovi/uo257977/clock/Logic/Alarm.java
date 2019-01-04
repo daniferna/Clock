@@ -22,7 +22,6 @@ public class Alarm implements Parcelable {
     private Boolean activada = true;
     private DIAS_ALARMA[] diasAlarma;
     private List<Intent> intentsAlarma = new ArrayList<>();
-
     public boolean isActivada() {
         return activada;
     }
@@ -30,6 +29,8 @@ public class Alarm implements Parcelable {
     public List<Intent> getIntents(){ return intentsAlarma;}
 
     public void setIntents(List<Intent> intents) {this.intentsAlarma= intents;}
+
+    public String getSonido(){return this.sonido;}
 
     public enum DIAS_ALARMA implements Parcelable {LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO;
 
