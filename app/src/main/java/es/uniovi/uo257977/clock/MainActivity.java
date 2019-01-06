@@ -181,7 +181,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cambiarListenerStopwatch() {
-        fab.setOnClickListener(null);
+        StopwatchFragment fragment = (StopwatchFragment)getSupportFragmentManager().getFragments().get(2);
+        fragment.setOnClickFabPlay(fab);
     }
 
     private void cambiarListenerAlarms() {

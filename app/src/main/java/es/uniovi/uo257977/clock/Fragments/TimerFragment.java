@@ -20,6 +20,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import es.uniovi.uo257977.clock.R;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground;
 
 public class TimerFragment extends Fragment {
 
@@ -38,6 +40,8 @@ public class TimerFragment extends Fragment {
 
         FloatingActionButton pausebt = view.findViewById(R.id.fabPauseTimer);
         txtTimer = view.findViewById(R.id.txtTimer);
+
+
 
         txtTimer.setOnClickListener(v -> {
             seleccionarSegundos();
@@ -76,7 +80,6 @@ public class TimerFragment extends Fragment {
                 countDownTimer = null;
             }
         });
-
 
         return view;
     }

@@ -26,6 +26,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     private NotificationManager notifManager;
+    private SpotifyConnection spotifyConnection;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -46,6 +47,10 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     private void notificacionAlarma(Alarm alarm,Context context,Intent intent) {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         createNotification(df.format(alarm.getFecha_alarma()) + "Nombre Alarma:" + alarm.getNombre() ,context,alarm);
+        if(alarm.getSpotify()==true){
+            spotifyConnection= new SpotifyConnection();
+            spotifyConnection.activateSpotifyAlarm();
+        }
 
     }
 
@@ -85,8 +90,10 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent)
                     .setTicker(aMessage)
-                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
-                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            if(alarm.getSpotify()==false){
+                builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+            }
             Log.d("Notification","Entro por aqui");
         }
         else {
@@ -102,9 +109,12 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                     .setContentIntent(pendingIntent)
                     .setTicker(aMessage)
                     .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
-                    .setPriority(Notification.PRIORITY_HIGH)
-                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+                    .setPriority(Notification.PRIORITY_HIGH);
                     Log.d("Notification","Entro por aca");
+
+            if(alarm.getSpotify()==false){
+                builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+            }
         }
 
         Notification notification = builder.build();
