@@ -1,6 +1,13 @@
 package es.uniovi.uo257977.clock.Fragments;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -16,13 +23,17 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import es.uniovi.uo257977.clock.Logic.TimerReceiver;
 import es.uniovi.uo257977.clock.R;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
-public class TimerFragment extends Fragment {
+public class TimerFragment extends Fragment{
 
+    public static final int TIMER_NOTIFICATION_ID = 20;
 
     protected View view;
     private Boolean isRunnig=false,isPaused=false;
@@ -85,7 +96,7 @@ public class TimerFragment extends Fragment {
         MaterialNumberPicker numberPicker = new MaterialNumberPicker(view.getContext());
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(100);
-        numberPicker.setValue(10);
+        numberPicker.setValue(0);
         numberPicker.setTextSize(getResources().getDimensionPixelSize(R.dimen.about_item_text_size));
         numberPicker.setSeparatorColor(ContextCompat.getColor(view.getContext(), R.color.accent));
         numberPicker.setTextColor(ContextCompat.getColor(view.getContext(), R.color.primary_dark));
@@ -160,10 +171,37 @@ public class TimerFragment extends Fragment {
                     public void onFinish() {
                         isRunnig = false;
                         isPaused = false;
+                        mostrarNotificacionTimer();
                     }
                 }.start();
             }
         });
+
+    }
+
+    private void mostrarNotificacionTimer() {
+        Intent intent = new Intent(getContext(), TimerReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Builder notiBuilder = new NotificationCompat.Builder(getContext(), getString(R.string.default_notification_channel_id))
+                .setSmallIcon(R.drawable.ic_timer_black_24dp)
+                .setContentTitle("Temporizador finalizado")
+                .setContentText("La cuenta atras ha finalizado")
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setSound(RingtoneManager.getActualDefaultRingtoneUri(getContext(), RingtoneManager.TYPE_ALARM), AudioManager.STREAM_ALARM)
+                .addAction(R.drawable.ic_volume_mute, getString(android.R.string.ok), pendingIntent)
+                .setAutoCancel(false);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(getString(R.string.default_notification_channel_id),
+                    getString(R.string.default_notification_channel_title), NotificationManager.IMPORTANCE_HIGH);
+            channel.setSound(RingtoneManager.getActualDefaultRingtoneUri(getContext(), RingtoneManager.TYPE_ALARM), new AudioAttributes.Builder().
+                    setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build());
+            NotificationManager notificationManager = getContext().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+            notificationManager.notify(TIMER_NOTIFICATION_ID, notiBuilder.build());
+        } else
+            NotificationManagerCompat.from(getContext()).notify(TIMER_NOTIFICATION_ID, notiBuilder.build());
 
     }
 

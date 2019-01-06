@@ -78,7 +78,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferencePermisos.onPreferenceClickListener = Preference.OnPreferenceClickListener {
 
             var hePedidoPermisos = true
-            val dsad = 0
 
             if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),

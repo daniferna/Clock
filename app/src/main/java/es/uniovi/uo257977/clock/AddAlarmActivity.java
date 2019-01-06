@@ -116,10 +116,10 @@ public class AddAlarmActivity extends AppCompatActivity {
 
         TimePicker time = findViewById(R.id.timePicker_timer);
         Calendar cal = Calendar.getInstance();
-        cal.clear();
+        cal.setTimeInMillis(System.currentTimeMillis());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            cal.add(Calendar.HOUR_OF_DAY, time.getHour());
-            cal.add(Calendar.MINUTE, time.getMinute());
+            cal.set(Calendar.HOUR_OF_DAY, time.getHour());
+            cal.set(Calendar.MINUTE, time.getMinute());
         } else {
             cal.add(Calendar.HOUR_OF_DAY, time.getCurrentHour());
             cal.add(Calendar.MINUTE, time.getCurrentMinute());
@@ -153,7 +153,6 @@ public class AddAlarmActivity extends AppCompatActivity {
 
         getIntent().putParcelableArrayListExtra("Alarmas", alarmasList.alarmas);
         setResult(RESULT_OK, getIntent());
-
 
         finish();
 
