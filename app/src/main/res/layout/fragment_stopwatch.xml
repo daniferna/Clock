@@ -16,17 +16,17 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:indeterminate="false"
-        android:max="100"
+        android:max="60"
         android:minWidth="350dp"
         android:minHeight="350dp"
         android:progress="0"
+        android:indeterminate="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.223"
+        app:layout_constraintVertical_bias="0.33999997"
         app:mpb_showProgressBackground="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -22,10 +22,10 @@
         android:progress="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35000002"
+        app:layout_constraintVertical_bias="0.34"
         app:mpb_showProgressBackground="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -67,11 +67,17 @@
         style="@style/Base.TextAppearance.AppCompat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="00:00"
-        android:textSize="70sp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="@+id/materialProgressBar"
-        app:layout_constraintEnd_toEndOf="@+id/materialProgressBar"
-        app:layout_constraintStart_toStartOf="@+id/materialProgressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/materialProgressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

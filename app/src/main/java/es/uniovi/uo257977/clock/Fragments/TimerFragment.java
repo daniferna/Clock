@@ -30,8 +30,6 @@ import androidx.fragment.app.Fragment;
 import es.uniovi.uo257977.clock.Logic.TimerReceiver;
 import es.uniovi.uo257977.clock.R;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
-import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground;
 
 public class TimerFragment extends Fragment{
 
@@ -134,6 +132,9 @@ public class TimerFragment extends Fragment{
     public void setOnClickFabPlay(FloatingActionButton fab) {
 
         fab.setOnClickListener(v -> {
+            if(getTimeLeft() == 0)
+                return;
+
             if (isPaused && countDownTimer != null) {
                 countDownTimer.cancel();
                 countDownTimer = null;

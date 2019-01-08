@@ -4,11 +4,9 @@ package es.uniovi.uo257977.clock.Fragments;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Chronometer;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,6 +52,11 @@ public class StopwatchFragment extends Fragment  {
             @Override
             public void onChronometerTick(Chronometer chronometerChanged) {
                 chrono = chronometerChanged;
+                int segundos = Integer.parseInt(chrono.getText().toString().split(":")[1]);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    progressBar.setProgress(segundos, true);
+                else
+                    progressBar.setProgress(segundos);
             }
         });
 
@@ -100,26 +103,10 @@ public class StopwatchFragment extends Fragment  {
         if(!isRunnig && !isPaused){
             chrono.setBase(SystemClock.elapsedRealtime());
             chrono.start();
-            float tiempoIzquierda = 0/1000;
-            float tiempoDerecha = 60 / 1000;
-            int progreso = (int) ((tiempoIzquierda / tiempoDerecha)*100);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                progressBar.setProgress(100-progreso, true);
-            else
-                progressBar.setProgress(100-progreso);
             isRunnig = true;
         }
         if(!isRunnig && isPaused){
             chrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
-         /* float tiempoIzquierda = ((Math.abs(chrono.getBase())/1000)%60);
-            float tiempoDerecha = 60 / 1000;
-            int progreso = (int) ((tiempoIzquierda / tiempoDerecha)*100);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                progressBar.setProgress(100-progreso, true);
-            else
-                progressBar.setProgress(100-progreso);*/
             timeWhenStopped=0;
             chrono.start();
             isRunnig = true;
