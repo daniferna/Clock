@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.util.Log;
@@ -101,7 +102,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                     .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
             if(alarm.getSpotify()==false){
                 builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
-            }
+        }
             Log.d("Notification","Entro por aqui");
         }
         else {
@@ -127,6 +128,10 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
         Notification notification = builder.build();
         notifManager.notify(NOTIFY_ID, notification);
+        Ringtone r = RingtoneManager.getRingtone(context, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+        r.play();
+        Log.d("Notification","SONIDITOOOO");
+
         AlarmIntentUtil.añadirAlarmManager(alarm,context);
 
     }
