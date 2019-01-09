@@ -36,6 +36,9 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         //Cargar las alarmas de las shared preferences
         List<Alarm> alarmas = cargarSharedPreferences(context);
 
+
+        spotifyConnection = SpotifyConnection.getSpotifyConnection();
+
         //Comprobar que alarma es la que se esta disparando
         for (Alarm alarm: alarmas){
             Calendar tiempoActual=Calendar.getInstance();
@@ -57,7 +60,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         createNotification(df.format(alarm.getFecha_alarma()) + "Nombre Alarma:" + alarm.getNombre() ,context,alarm);
         if(alarm.getSpotify()==true){
-            spotifyConnection= new SpotifyConnection();
+          //  spotifyConnection= new SpotifyConnection();
             spotifyConnection.activateSpotifyAlarm();
         }
 

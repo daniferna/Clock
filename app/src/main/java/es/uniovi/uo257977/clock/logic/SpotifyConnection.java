@@ -1,5 +1,7 @@
 package es.uniovi.uo257977.clock.logic;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -16,6 +18,7 @@ import com.spotify.protocol.types.Track;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import es.uniovi.uo257977.clock.MainActivity;
 
 public class SpotifyConnection extends AppCompatActivity {
 
@@ -26,15 +29,26 @@ public class SpotifyConnection extends AppCompatActivity {
     private SpotifyAppRemote mSpotifyAppRemote;
     private static final String OAuthToken ="BQCGacI2HG_5I4qD-ghVrJc397p7eD1stfAk96ACikOi8xm__w_Tkd85EbaMrQHUORORxlJpvfmY3jRtNfU2XdFsOCnZAU5QrhDrFRyyMzKt7So_eNcRIGvxDXwGlDBxMGPAiNqR92xVkg";
     ArrayList<String> SpotifyPlaylist;
+    Context context;
+    private static SpotifyConnection miConexionSpotify;
 
 
-
-
-    public SpotifyConnection(){
-
+    private SpotifyConnection(Context context){
+        this.context=context;
         crearPlayList();
+        connect();
+    }
+    public static  SpotifyConnection getSpotifyConnection(Context context){
+        if(miConexionSpotify==null){
+            miConexionSpotify=new SpotifyConnection(context);
+        }
+        return miConexionSpotify;
     }
 
+    public static  SpotifyConnection getSpotifyConnection(){
+
+        return miConexionSpotify;
+    }
 
     @Override
     protected void onStart() {
@@ -74,18 +88,18 @@ public class SpotifyConnection extends AppCompatActivity {
                 .setRedirectUri(REDIRECT_URI)
                 .showAuthView(true)
                 .build();
-        SpotifyAppRemote.connect(this, connectionParams,
+        SpotifyAppRemote.connect(context, connectionParams,
                 new Connector.ConnectionListener() {
 
                     @Override
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("MainActivity2", "Connected!!");
+                        Log.d("SpotifyReloj", "Connected!!");
                     }
 
                     @Override
                     public void onFailure(Throwable throwable) {
-                        Log.e("MainActivity2.0", throwable.getMessage(), throwable);
+                        Log.e("SpotifyReloj", throwable.getMessage(), throwable);
 
                     }
                 });
@@ -96,7 +110,8 @@ public class SpotifyConnection extends AppCompatActivity {
     public void activateSpotifyAlarm() {
 
         // Play a playlist
-        int playListForToday= (int)(Math.random() *8);
+        int playListForToday= (int)(Math.random() *7);
+        Log.e("SpotifyReloj", ""+playListForToday);
         mSpotifyAppRemote.getPlayerApi().play(SpotifyPlaylist.get(playListForToday));
         mSpotifyAppRemote.getPlayerApi()
                 .subscribeToPlayerState()
