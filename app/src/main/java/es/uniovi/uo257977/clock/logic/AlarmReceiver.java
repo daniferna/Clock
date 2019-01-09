@@ -1,10 +1,9 @@
-package es.uniovi.uo257977.clock.Logic;
+package es.uniovi.uo257977.clock.logic;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -13,6 +12,8 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import androidx.core.app.NotificationCompat;
@@ -36,10 +37,17 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
         //Comprobar que alarma es la que se esta disparando
         for (Alarm alarm: alarmas){
-            for (Intent intentTemp: alarm.getIntents()){
-                if (intent.filterEquals(intentTemp)){
-                    notificacionAlarma(alarm,context,intent);
-                }
+            Calendar tiempoActual=Calendar.getInstance();
+            tiempoActual.set(Calendar.SECOND,0);
+            tiempoActual.set(Calendar.MILLISECOND,0);
+
+            Date tiempoActualDate = tiempoActual.getTime();
+            if (tiempoActualDate.getTime()==(alarm.getFecha_alarma().getTime())){
+                //  for (Intent intentTemp: alarm.getIntents()){
+                //   if (intent.filterEquals(intentTemp) && intent.getFlags()!=(Intent.FLAG_RECEIVER_FOREGROUND + Intent.FLAG_EXCLUDE_STOPPED_PACKAGES)){
+                notificacionAlarma(alarm, context, intent);
+                //    }
+                //  }
             }
         }
     }

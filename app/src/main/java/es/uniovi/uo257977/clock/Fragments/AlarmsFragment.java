@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.kots.mob.complex.preferences.ComplexPreferences;
-import es.uniovi.uo257977.clock.Logic.Alarm;
-import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
-import es.uniovi.uo257977.clock.Logic.ListAlarms;
+import es.uniovi.uo257977.clock.logic.Alarm;
+import es.uniovi.uo257977.clock.logic.AlarmRecyclerAdapter;
+import es.uniovi.uo257977.clock.logic.ListAlarms;
 import es.uniovi.uo257977.clock.R;
 
 import static android.content.Context.MODE_PRIVATE;

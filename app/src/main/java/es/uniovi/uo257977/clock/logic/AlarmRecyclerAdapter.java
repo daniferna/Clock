@@ -1,4 +1,4 @@
-package es.uniovi.uo257977.clock.Logic;
+package es.uniovi.uo257977.clock.logic;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -19,7 +19,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -28,12 +27,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
-import br.com.kots.mob.complex.preferences.ComplexPreferences;
-import es.uniovi.uo257977.clock.MainActivity;
 import es.uniovi.uo257977.clock.R;
 
 import static android.content.Context.ALARM_SERVICE;
-import static android.content.Context.MODE_PRIVATE;
 
 public class AlarmRecyclerAdapter extends Adapter<AlarmRecyclerAdapter.ViewHolder> {
 

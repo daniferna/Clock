@@ -6,12 +6,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -26,8 +24,8 @@ import java.util.Calendar;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import br.com.kots.mob.complex.preferences.ComplexPreferences;
-import es.uniovi.uo257977.clock.Logic.Alarm;
-import es.uniovi.uo257977.clock.Logic.ListAlarms;
+import es.uniovi.uo257977.clock.logic.Alarm;
+import es.uniovi.uo257977.clock.logic.ListAlarms;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground;
 
@@ -107,9 +105,11 @@ public class AddAlarmActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             cal.set(Calendar.HOUR_OF_DAY, time.getHour());
             cal.set(Calendar.MINUTE, time.getMinute());
+            cal.set(Calendar.SECOND,0);
         } else {
             cal.add(Calendar.HOUR_OF_DAY, time.getCurrentHour());
             cal.add(Calendar.MINUTE, time.getCurrentMinute());
+            cal.set(Calendar.SECOND,0);
         }
         alarma.setFecha_alarma(cal.getTime());
 

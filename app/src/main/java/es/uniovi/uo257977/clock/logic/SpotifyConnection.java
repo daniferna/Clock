@@ -1,6 +1,5 @@
-package es.uniovi.uo257977.clock.Logic;
+package es.uniovi.uo257977.clock.logic;
 
-import android.os.Bundle;
 import android.util.Log;
 
 import com.android.volley.Request;

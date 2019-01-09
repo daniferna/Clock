@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import br.com.kots.mob.complex.preferences.ComplexPreferences;
-import es.uniovi.uo257977.clock.Logic.ChartAnimations.Easing.BounceEase;
+import es.uniovi.uo257977.clock.logic.ChartAnimations.Easing.BounceEase;
 
 public class ScoreboardActivity extends AppCompatActivity {
 

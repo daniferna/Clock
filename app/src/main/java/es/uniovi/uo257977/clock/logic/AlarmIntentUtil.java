@@ -1,4 +1,4 @@
-package es.uniovi.uo257977.clock.Logic;
+package es.uniovi.uo257977.clock.logic;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import br.com.kots.mob.complex.preferences.ComplexPreferences;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -64,6 +63,7 @@ public class AlarmIntentUtil {
         calendar.setTime(alarma.getFecha_alarma());
         calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
         calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
         calendar.set(Calendar.YEAR,Calendar.getInstance().get(Calendar.YEAR));
 
         // Check we aren't setting it in the past which would trigger it to fire instantly
@@ -73,7 +73,8 @@ public class AlarmIntentUtil {
 
         // Creo un intent que recibira la clase AlarmReceiver
         Intent myIntent = new Intent(context, AlarmReceiver.class);
-        PendingIntent yourIntent = PendingIntent.getBroadcast(context, (int)System.currentTimeMillis(), myIntent, 0);
+        int systemTime= (int) System.currentTimeMillis();
+        PendingIntent yourIntent = PendingIntent.getBroadcast(context, systemTime, myIntent, 0);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), yourIntent);

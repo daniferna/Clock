@@ -1,4 +1,4 @@
-package es.uniovi.uo257977.clock.Logic;
+package es.uniovi.uo257977.clock.logic;
 
 import java.util.List;
 import java.util.Objects;

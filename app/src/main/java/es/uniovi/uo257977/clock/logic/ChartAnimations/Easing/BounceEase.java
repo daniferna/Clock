@@ -1,4 +1,4 @@
-package es.uniovi.uo257977.clock.Logic.ChartAnimations.Easing;
+package es.uniovi.uo257977.clock.logic.ChartAnimations.Easing;
 
 public class BounceEase extends BaseEasingMethod {
 

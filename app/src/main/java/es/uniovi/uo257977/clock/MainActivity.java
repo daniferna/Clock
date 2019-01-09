@@ -9,26 +9,14 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.db.chart.model.BarSet;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.spotify.android.appremote.api.ConnectionParams;
-import com.spotify.android.appremote.api.Connector;
-import com.spotify.android.appremote.api.SpotifyAppRemote;
-import com.spotify.protocol.types.Track;
 
 import java.util.ArrayList;
 
@@ -47,8 +35,8 @@ import br.com.kots.mob.complex.preferences.ComplexPreferences;
 import es.uniovi.uo257977.clock.Fragments.AlarmsFragment;
 import es.uniovi.uo257977.clock.Fragments.StopwatchFragment;
 import es.uniovi.uo257977.clock.Fragments.TimerFragment;
-import es.uniovi.uo257977.clock.Logic.Alarm;
-import es.uniovi.uo257977.clock.Logic.AlarmRecyclerAdapter;
+import es.uniovi.uo257977.clock.logic.Alarm;
+import es.uniovi.uo257977.clock.logic.AlarmRecyclerAdapter;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground;
 

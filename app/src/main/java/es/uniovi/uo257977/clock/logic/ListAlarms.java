@@ -1,10 +1,6 @@
-package es.uniovi.uo257977.clock.Logic;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package es.uniovi.uo257977.clock.logic;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListAlarms  {
 

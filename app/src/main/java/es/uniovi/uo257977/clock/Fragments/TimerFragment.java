@@ -27,8 +27,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import es.uniovi.uo257977.clock.Logic.TimerReceiver;
 import es.uniovi.uo257977.clock.R;
+import es.uniovi.uo257977.clock.logic.AlarmReceiver;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class TimerFragment extends Fragment{
@@ -184,7 +184,7 @@ public class TimerFragment extends Fragment{
     }
 
     private void mostrarNotificacionTimer() {
-        Intent intent = new Intent(getContext(), TimerReceiver.class);
+        Intent intent = new Intent(getContext(), AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder notiBuilder = new NotificationCompat.Builder(getContext(), getString(R.string.default_notification_channel_id))

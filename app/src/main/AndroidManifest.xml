@@ -49,15 +49,15 @@
         <activity
             android:name=".Fragments.SettingsFragment$AboutActivity"
             android:label="Acerca de" />
-        <receiver android:name=".Logic.AlarmReceiver"/>
+        <receiver android:name=".logic.AlarmReceiver"/>
         <!-- Start the Service if applicable on boot -->
-        <receiver android:name=".Logic.OnBootReceiver"
+        <receiver android:name="es.uniovi.uo257977.clock.logic.onBootReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".Logic.TimerReceiver"/>
+        <receiver android:name=".logic.TimerReceiver"/>
     </application>
 
 </manifest>
