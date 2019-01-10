@@ -4,6 +4,7 @@
     package="es.uniovi.uo257977.clock">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -61,6 +62,10 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".logic.TimerReceiver" />
+        <receiver
+            android:name=".logic.StopAlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

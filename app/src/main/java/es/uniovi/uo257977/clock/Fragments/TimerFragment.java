@@ -207,6 +207,7 @@ public class TimerFragment extends Fragment{
         } else
             NotificationManagerCompat.from(getContext()).notify(TIMER_NOTIFICATION_ID, notiBuilder.build());
 
+
     }
 
     private Long getTimeLeft(){

@@ -91,7 +91,8 @@ public class AddAlarmActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == TONE_PICKER && resultCode == RESULT_OK) {
             Uri tonoSeleccionado = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-            if (tonoSeleccionado == null) return;
+            if (tonoSeleccionado == null)
+                return;
            alarma.setSonido(tonoSeleccionado.toString());
         }
     }
