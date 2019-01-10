@@ -78,7 +78,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         String id = context.getString(R.string.default_notification_channel_id); // default_channel_id
         String title = context.getString(R.string.default_notification_channel_title); // Default Channel
 
-        Intent intent = new Intent(context, TimerReceiver.class);
+        Intent intent = new Intent(context, StopAlarmReceiver.class);
         intent.putExtra("Tiempo",System.currentTimeMillis());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -90,11 +90,11 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                 .setContentText(context.getString(R.string.app_name))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setAutoCancel(false)
-                .setSound(Uri.parse(alarm.getSonido()), AudioManager.STREAM_ALARM)
                 .setCategory(Notification.CATEGORY_ALARM)
                 .setTicker(aMessage)
                 .addAction(R.drawable.ic_volume_mute, context.getString(android.R.string.ok), pendingIntent);
-
+        if (alarm.getSpotify()== false)
+           builder.setSound(Uri.parse(alarm.getSonido()), AudioManager.STREAM_ALARM);
 
         if (notifManager == null) {
             notifManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -105,7 +105,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             if (mChannel == null) {
                 mChannel = new NotificationChannel(id, title, importance);
                 mChannel.enableLights(true);
-                mChannel.setSound(Uri.parse(alarm.getSonido()), new AudioAttributes.Builder().
+                if (alarm.getSpotify()==false)
+                    mChannel.setSound(Uri.parse(alarm.getSonido()), new AudioAttributes.Builder().
                         setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build());
                 if (alarm.isVibrar()) {
                     mChannel.setVibrationPattern(pattern);

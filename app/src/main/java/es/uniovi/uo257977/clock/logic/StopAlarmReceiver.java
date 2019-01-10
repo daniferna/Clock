@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 
 import java.util.Calendar;
 
+import br.com.kots.mob.complex.preferences.ComplexPreferences;
 import es.uniovi.uo257977.clock.Fragments.TimerFragment;
 import es.uniovi.uo257977.clock.MainActivity;
 
@@ -19,44 +20,65 @@ public class StopAlarmReceiver extends BroadcastReceiver {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(AlarmReceiver.ALARM_NOTIFICATION_ID);
-
         context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));//Cerramos la barra de notificaciones
-        SharedPreferences prefs = context.getSharedPreferences(MainActivity.SHARED_PREF_KEY,Context.MODE_PRIVATE);
+
+        ComplexPreferences prefs = ComplexPreferences.getComplexPreferences(context, "AlarmAppPreferences", Context.MODE_PRIVATE);
         Long tiempo=System.currentTimeMillis();
         Calendar dia = Calendar.getInstance();
         Long media;
         switch(dia.get(Calendar.DAY_OF_WEEK)){
             case (Calendar.MONDAY):
-                 media= prefs.getLong("Lunes",0);
+                 media= prefs.getObject("Lunes",long.class);
+                if (media ==null)
+                    media =0l;
                  media=(tiempo - intent.getLongExtra("Tiempo",0)+media)/2;
-                 prefs.edit().putLong("Lunes",media);
+                 prefs.putObject("Lunes",media);
+                break;
             case (Calendar.TUESDAY):
-                 media= prefs.getLong("Martes",0);
+                media= prefs.getObject("Martes",long.class);
+                if (media ==null)
+                    media =0l;
                 media=(tiempo - intent.getLongExtra("Tiempo",0)+media)/2;
-                prefs.edit().putLong("Martes",media);
+                prefs.putObject("Martes",media);
+                break;
 
             case (Calendar.WEDNESDAY):
-                media= prefs.getLong("Miercoles",0);
+                media= prefs.getObject("Miercoles",long.class);
+                if (media ==null)
+                    media =0l;
                 media=(tiempo - intent.getLongExtra("Tiempo",0)+media)/2;
-                prefs.edit().putLong("Miercoles",media);
+                prefs.putObject("Miercoles",media);
+                break;
             case (Calendar.THURSDAY):
-                media= prefs.getLong("Jueves",0);
+                media= prefs.getObject("Jueves",long.class);
+                if (media ==null)
+                    media =0l;
                 media=(tiempo - intent.getLongExtra("Tiempo",0)+media)/2;
-                prefs.edit().putLong("Jueves",media);
+                prefs.putObject("Jueves",media);
+                break;
             case (Calendar.FRIDAY):
-                media= prefs.getLong("Viernes",0);
+                media= prefs.getObject("Viernes",long.class);
+                if (media ==null)
+                    media =0l;
                 media=(tiempo - intent.getLongExtra("Tiempo",0)+media)/2;
-                prefs.edit().putLong("Viernes",media);
+                prefs.putObject("Viernes",media);
+                break;
             case (Calendar.SATURDAY):
-                media= prefs.getLong("Sabado",0);
+                media= prefs.getObject("Sabado",long.class);
+                if (media ==null)
+                    media =0l;
                 media=(tiempo - intent.getLongExtra("Tiempo",0)+media)/2;
-                prefs.edit().putLong("Sabado",media);
+                prefs.putObject("Sabado",media);
+                break;
             case (Calendar.SUNDAY):
-                media= prefs.getLong("Domingo",0);
+                media= prefs.getObject("Domingo",long.class);
+                if (media ==null)
+                    media =0l;
                 media=(tiempo - intent.getLongExtra("Tiempo",0)+media)/2;
-                prefs.edit().putLong("Domingo",media);
+                prefs.putObject("Domingo",media);
+                break;
         }
-
+        prefs.commit();
 
     }
 }

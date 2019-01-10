@@ -63,9 +63,7 @@
         </receiver>
         <receiver android:name=".logic.TimerReceiver" />
         <receiver
-            android:name=".logic.StopAlarmReceiver"
-            android:enabled="true"
-            android:exported="true"></receiver>
+            android:name=".logic.StopAlarmReceiver"></receiver>
     </application>
 
 </manifest>
