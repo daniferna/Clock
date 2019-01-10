@@ -60,34 +60,26 @@ public class TimerFragment extends Fragment{
 
         progressBar = view.findViewById(R.id.materialProgressBar);
 
-        pausebt.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                if (isRunnig && !isPaused) {
-                    isPaused = true;
-                    isRunnig = false;
-                }
+        pausebt.setOnClickListener(v -> {
+            if (isRunnig && !isPaused) {
+                isPaused = true;
+                isRunnig = false;
             }
         });
 
         FloatingActionButton stopbt = view.findViewById(R.id.fabStopTimer);
 
-        stopbt.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                isPaused = false;
-                isRunnig = false;
-                txtTimer.setText("00:00");
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    progressBar.setProgress(0, true);
-                else
-                    progressBar.setProgress(0);
-                if (countDownTimer != null)
-                    countDownTimer.cancel();
-                countDownTimer = null;
-            }
+        stopbt.setOnClickListener(v -> {
+            isPaused = false;
+            isRunnig = false;
+            txtTimer.setText("00:00");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                progressBar.setProgress(0, true);
+            else
+                progressBar.setProgress(0);
+            if (countDownTimer != null)
+                countDownTimer.cancel();
+            countDownTimer = null;
         });
 
         return view;
@@ -103,7 +95,7 @@ public class TimerFragment extends Fragment{
         numberPicker.setTextColor(ContextCompat.getColor(view.getContext(), R.color.primary_dark));
         numberPicker.setEditable(false);
         new AlertDialog.Builder(view.getContext())
-                .setTitle("Seleccione los minutos")
+                .setTitle(getString(R.string.select_minutes))
                 .setView(numberPicker)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     txtTimer.setText(String.format(Locale.getDefault(),
@@ -121,7 +113,7 @@ public class TimerFragment extends Fragment{
         numberPicker.setTextColor(ContextCompat.getColor(view.getContext(), R.color.primary_dark));
         numberPicker.setEditable(false);
         new AlertDialog.Builder(view.getContext())
-                .setTitle("Seleccione los segundos")
+                .setTitle(getString(R.string.select_seconds))
                 .setView(numberPicker)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     txtTimer.setText(String.format(Locale.getDefault(),
@@ -189,8 +181,8 @@ public class TimerFragment extends Fragment{
 
         NotificationCompat.Builder notiBuilder = new NotificationCompat.Builder(getContext(), getString(R.string.default_notification_channel_id))
                 .setSmallIcon(R.drawable.ic_timer_black_24dp)
-                .setContentTitle("Temporizador finalizado")
-                .setContentText("La cuenta atras ha finalizado")
+                .setContentTitle(getString(R.string.finished_temp))
+                .setContentText(getString(R.string.finished_temp_body))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setSound(RingtoneManager.getActualDefaultRingtoneUri(getContext(), RingtoneManager.TYPE_ALARM), AudioManager.STREAM_ALARM)
                 .addAction(R.drawable.ic_volume_mute, getString(android.R.string.ok), pendingIntent)

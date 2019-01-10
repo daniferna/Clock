@@ -204,8 +204,8 @@ public class AddAlarmActivity extends AppCompatActivity {
         //Material Tap Target
             new MaterialTapTargetPrompt.Builder(this)
                     .setTarget(R.id.spotifyRbt)
-                    .setPrimaryText("Spotify como tono")
-                    .setSecondaryText("Pulsa aqui si quieres una cancion de spotify como alarma")
+                    .setPrimaryText(getString(R.string.Material_info_primary_Spotify))
+                    .setSecondaryText(getString(R.string.materuial_info_Spotify))
                     .setBackButtonDismissEnabled(true)
                     .setPromptBackground(new RectanglePromptBackground())
                     .show();
