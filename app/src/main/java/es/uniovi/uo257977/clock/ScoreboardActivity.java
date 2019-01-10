@@ -1,7 +1,5 @@
 package es.uniovi.uo257977.clock;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.ProgressBar;
@@ -12,9 +10,7 @@ import com.db.chart.model.ChartEntry;
 import com.db.chart.renderer.AxisRenderer;
 import com.db.chart.view.BarChartView;
 
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.concurrent.ThreadLocalRandom;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -86,7 +82,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         if (domingo <0 || domingo==TIEMPO)
             domingo = 0l;
 
-        // GRAFICA DE PRUEBA
+        /* GRAFICA */
         barSet.addBar("Lunes", lunes*1000/TIEMPO);
         barSet.addBar("Martes", martes*1000/TIEMPO);
         barSet.addBar("Miércoles", miercoles*1000/TIEMPO);
