@@ -87,13 +87,13 @@ public class ScoreboardActivity extends AppCompatActivity {
             domingo = 0l;
 
         // GRAFICA DE PRUEBA
-        barSet.addBar("Lunes", lunes);
-        barSet.addBar("Martes", martes);
-        barSet.addBar("Miércoles", miercoles);
-        barSet.addBar("Jueves",jueves);
-        barSet.addBar("Viernes",viernes);
-        barSet.addBar("Sábado", sabado);
-        barSet.addBar("Domingo",domingo);
+        barSet.addBar("Lunes", lunes*1000/TIEMPO);
+        barSet.addBar("Martes", martes*1000/TIEMPO);
+        barSet.addBar("Miércoles", miercoles*1000/TIEMPO);
+        barSet.addBar("Jueves",jueves*1000/TIEMPO);
+        barSet.addBar("Viernes",viernes*1000/TIEMPO);
+        barSet.addBar("Sábado", sabado*1000/TIEMPO);
+        barSet.addBar("Domingo",domingo*1000/TIEMPO);
 
         float sum = 0;
         for(ChartEntry ce : barSet.getEntries())
