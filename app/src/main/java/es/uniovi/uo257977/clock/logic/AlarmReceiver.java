@@ -58,7 +58,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     private void notificacionAlarma(Alarm alarm, Context context, Intent intent) {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
-        createNotification(df.format(alarm.getFecha_alarma()) + " Nombre Alarma: " + alarm.getNombre(), context, alarm);
+        createNotification("Alarma de las : "+df.format(alarm.getFecha_alarma()) + " Nombre Alarma: " + alarm.getNombre(), context, alarm);
         if (alarm.getSpotify() == true) {
             //  spotifyConnection= new SpotifyConnection();
             spotifyConnection.activateSpotifyAlarm();
