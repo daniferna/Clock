@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -46,13 +47,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             if (!Settings.System.canWrite(context)){
                 preferenceTono.isEnabled = false
-                preferenceTono.summary = "No disponible debido a ausencia de permisos"
+                preferenceTono.summary = getString(R.string.ausencia_permisos)
             } else if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED)
                 preferencePermisos.isVisible = false
 
         if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED){
             preferenceMorningNotification.isEnabled = false
-            preferenceMorningNotification.summary = "No disponible debido a ausencia de permisos"
+            preferenceMorningNotification.summary = getString(R.string.ausencia_permisos)
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.System.canWrite(context))
             preferencePermisos.isVisible = false
 
@@ -85,8 +86,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     val alertBuilder = AlertDialog.Builder(requireContext())
                     alertBuilder.setCancelable(true)
                     alertBuilder.setMessage("El permiso de ubicacion es neceario para poder mostrar la informacion del tiempo al apagar las alarmas")
-                    alertBuilder.setPositiveButton("Conceder") { dialog, which -> ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_PERMISSION_LOCATION_COARSE) }
-                    alertBuilder.setNegativeButton("No conceder") { dialog, which ->
+                    alertBuilder.setPositiveButton("Conceder") { _, _ -> ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_PERMISSION_LOCATION_COARSE) }
+                    alertBuilder.setNegativeButton("No conceder") { dialog, _ ->
                         run {
                             dialog.dismiss()
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -128,6 +129,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         preferenceMorningNotification.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            if (preferenceMorningNotification.isChecked)
+                Toast.makeText(context, "WIP", Toast.LENGTH_SHORT).show()
             return@OnPreferenceClickListener sharedPreferences.edit().
                     putBoolean("notificacion_matinal", preferenceMorningNotification.isChecked).commit()
         }

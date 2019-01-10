@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_PERMISSION_LOCATION_COARSE = 1500;
 
     private static final String IS_INFO_ADD_ALARM_REQUIRED = "info_tap_target_add_alarm";
-    private static final String IS_INFO_CRONO_REQUIRED = "info_tap_target_crono_play_pause";
+    private static final String IS_INFO_CRONO_REQUIRED = "info_tap_target_chrono_play_pause";
+    private static final String IS_INFO_TEMP_REQUIRED = "info_tap_target_temp_play_pause";
 
     BottomAppBar bottomAppBar;
     FloatingActionButton fab;
@@ -58,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
     static final int ALARM_REQUEST = 1;
     private SharedPreferences sharedPreferences;
     private ComplexPreferences complexPreferences;
-
-
-
-    private boolean noDialogUbicacion = false;
 
     //Localizacion
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -79,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
 
         comprobacionDePermisos();
-        obtencionDeUbicacion();
 
         fab = findViewById(R.id.fab);
         bottomAppBar = findViewById(R.id.bottom_app_bar);
@@ -122,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -140,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2: //Timer
                         needAnimate = false;
+                        mostrarInformacionPlayTemp();
                         cambiarListenerTimer();
                         break;
                 }
@@ -147,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
 
@@ -213,8 +208,20 @@ public class MainActivity extends AppCompatActivity {
                     .show();
     }
 
-    private void obtencionDeUbicacion() {
-        //TODO
+    private void mostrarInformacionPlayTemp() {
+        //Material Tap Target
+        if (sharedPreferences.getBoolean(IS_INFO_TEMP_REQUIRED, true))
+            new MaterialTapTargetPrompt.Builder(this)
+                    .setTarget(R.id.fab)
+                    .setPrimaryText("Comenzar/Pausar")
+                    .setSecondaryText("Pulsa aqui si quieres encender/pausar el temporizador")
+                    .setPromptStateChangeListener((prompt, state) -> {
+                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED)
+                            sharedPreferences.edit().putBoolean(IS_INFO_TEMP_REQUIRED, false).apply();
+                    })
+                    .setBackButtonDismissEnabled(true)
+                    .setPromptBackground(new RectanglePromptBackground())
+                    .show();
     }
 
     protected void comprobacionDePermisos() {
