@@ -32,6 +32,10 @@ public class Alarm implements Parcelable {
 
     public String getSonido(){return this.sonido;}
 
+    public void setSonido(String s) {
+        sonido=s;
+    }
+
     public enum DIAS_ALARMA implements Parcelable {LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO;
 
         @Override

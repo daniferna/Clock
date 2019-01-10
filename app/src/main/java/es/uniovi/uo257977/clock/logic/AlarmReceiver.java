@@ -6,8 +6,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
@@ -87,10 +90,15 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             NotificationChannel mChannel = notifManager.getNotificationChannel(id);
             if (mChannel == null) {
                 mChannel = new NotificationChannel(id, title, importance);
-                mChannel.enableVibration(true);
+                if (alarm.isVibrar())
+                    mChannel.enableVibration(true);
+                else
+                    mChannel.enableVibration(false);
                 mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
                 notifManager.createNotificationChannel(mChannel);
+
             }
+
             builder = new NotificationCompat.Builder(context, id);
             intent = new Intent(context, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
@@ -101,38 +109,32 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent)
-                    .setTicker(aMessage)
-                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-            if(alarm.getSpotify()==false){
-                builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
-        }
+                    .setTicker(aMessage);
             Log.d("Notification","Entro por aqui");
         }
         else {
             builder = new NotificationCompat.Builder(context, id);
             intent = new Intent(context, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder.setContentTitle(aMessage)                            // required
                     .setSmallIcon(android.R.drawable.ic_popup_reminder)   // required
                     .setContentText(context.getString(R.string.app_name)) // required
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setAutoCancel(true)
+                    .setOngoing(true)
                     .setContentIntent(pendingIntent)
                     .setTicker(aMessage)
-                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+                    .setSound(Uri.parse(alarm.getSonido()), AudioManager.STREAM_ALARM)
                     .setPriority(Notification.PRIORITY_HIGH);
-                    Log.d("Notification","Entro por aca");
+                Log.d("Notification","Entro por aca");
 
-            if(alarm.getSpotify()==false){
-                builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
-            }
         }
 
+
         Notification notification = builder.build();
+        notification.sound = Uri.parse(alarm.getSonido());
         notifManager.notify(NOTIFY_ID, notification);
-        Ringtone r = RingtoneManager.getRingtone(context, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
-        r.play();
         Log.d("Notification","SONIDITOOOO");
 
         AlarmIntentUtil.añadirAlarmManager(alarm,context);

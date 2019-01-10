@@ -36,6 +36,7 @@ public class AddAlarmActivity extends AppCompatActivity {
     private TimePicker timePicker;
     FloatingActionButton myFab;
 
+    private Alarm alarma = new Alarm();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,14 +92,11 @@ public class AddAlarmActivity extends AppCompatActivity {
         if (requestCode == TONE_PICKER && resultCode == RESULT_OK) {
             Uri tonoSeleccionado = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
             if (tonoSeleccionado == null) return;
-            RingtoneManager.setActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM, tonoSeleccionado);
+           alarma.setSonido(tonoSeleccionado.toString());
         }
     }
 
     public void añadirAlarma(View view) {
-        Alarm alarma = new Alarm();
-
-
         TimePicker time = findViewById(R.id.timePicker_timer);
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
@@ -138,11 +136,13 @@ public class AddAlarmActivity extends AppCompatActivity {
             alarmasList.setAlarms(temp);
         }
 
+
         complexPreferences.putObject("Alarmas", alarmasList);
         complexPreferences.commit();
 
         getIntent().putParcelableArrayListExtra("Alarmas", alarmasList.alarmas);
         setResult(RESULT_OK, getIntent());
+
 
         finish();
 
