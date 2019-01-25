@@ -7,11 +7,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
@@ -97,6 +97,10 @@ public class AddAlarmActivity extends AppCompatActivity {
         }
     }
 
+    public void disabledSpotify(View v){
+        Toast.makeText(v.getContext(), "Spotify deshabilitado", Toast.LENGTH_SHORT).show();
+    }
+
     public void añadirAlarma(View view) {
         TimePicker time = findViewById(R.id.timePicker_timer);
         Calendar cal = Calendar.getInstance();
@@ -114,13 +118,6 @@ public class AddAlarmActivity extends AppCompatActivity {
 
         EditText textoAlarma = findViewById(R.id.nombreAlarmaTxt);
         alarma.setNombre(textoAlarma.getText().toString());
-
-        CheckBox spotifyRbt = findViewById(R.id.spotifyRbt);
-        if (spotifyRbt.isChecked()) {
-            alarma.setSpotify(true);
-        } else {
-            alarma.setSpotify(false);
-        }
 
         ChipGroup botonesDias = findViewById(R.id.chipGroup_addAlarm);
         checkBotones(botonesDias, alarma);
@@ -203,7 +200,7 @@ public class AddAlarmActivity extends AppCompatActivity {
     private void mostrarInformacionSpotify() {
         //Material Tap Target
             new MaterialTapTargetPrompt.Builder(this)
-                    .setTarget(R.id.spotifyRbt)
+                    //.setTarget(R.id.spotifyRbt)
                     .setPrimaryText(getString(R.string.Material_info_primary_Spotify))
                     .setSecondaryText(getString(R.string.materuial_info_Spotify))
                     .setBackButtonDismissEnabled(true)

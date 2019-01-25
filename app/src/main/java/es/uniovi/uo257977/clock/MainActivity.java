@@ -37,7 +37,6 @@ import es.uniovi.uo257977.clock.Fragments.StopwatchFragment;
 import es.uniovi.uo257977.clock.Fragments.TimerFragment;
 import es.uniovi.uo257977.clock.logic.Alarm;
 import es.uniovi.uo257977.clock.logic.AlarmRecyclerAdapter;
-import es.uniovi.uo257977.clock.logic.SpotifyConnection;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground;
 
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         context = this;
-        SpotifyConnection.getSpotifyConnection(this);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         sharedPreferences = getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);

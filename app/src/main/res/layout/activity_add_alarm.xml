@@ -171,6 +171,8 @@
         android:contentDescription="@string/spotify_icon"
         android:longClickable="false"
         android:saveEnabled="false"
+        android:tint="@android:color/darker_gray"
+        android:onClick="disabledSpotify"
         app:layout_constraintBottom_toBottomOf="@+id/btn_seleccionarTonoAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
@@ -194,20 +196,5 @@
         app:layout_constraintStart_toStartOf="@+id/btn_seleccionarTonoAdd"
         app:layout_constraintTop_toBottomOf="@+id/imgButtonToneSpotify"
         app:layout_constraintVertical_bias="0.0" />
-
-    <CheckBox
-        android:id="@+id/spotifyRbt"
-        android:layout_width="42dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="8dp"
-        android:checked="false"
-        android:clickable="true"
-        android:linksClickable="true"
-        android:longClickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/imgButtonToneSpotify"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imgButtonToneSpotify"
-        app:layout_constraintTop_toTopOf="@+id/imgButtonToneSpotify" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

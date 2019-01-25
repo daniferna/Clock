@@ -8,11 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.util.Log;
 
 import java.text.DateFormat;
@@ -31,7 +28,6 @@ import static android.content.Context.MODE_PRIVATE;
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     private NotificationManager notifManager;
-    private SpotifyConnection spotifyConnection;
     public static final int ALARM_NOTIFICATION_ID = 30;
 
     @Override
@@ -41,7 +37,6 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         List<Alarm> alarmas = cargarSharedPreferences(context);
 
 
-        spotifyConnection = SpotifyConnection.getSpotifyConnection();
 
         //Comprobar que alarma es la que se esta disparando
         for (Alarm alarm : alarmas) {
@@ -59,10 +54,6 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     private void notificacionAlarma(Alarm alarm, Context context, Intent intent) {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         createNotification("Alarma de las : "+df.format(alarm.getFecha_alarma()) + " Nombre Alarma: " + alarm.getNombre(), context, alarm);
-        if (alarm.getSpotify() == true) {
-            //  spotifyConnection= new SpotifyConnection();
-            spotifyConnection.activateSpotifyAlarm();
-        }
 
     }
 
@@ -93,7 +84,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                 .setCategory(Notification.CATEGORY_ALARM)
                 .setTicker(aMessage)
                 .addAction(R.drawable.ic_volume_mute, context.getString(android.R.string.ok), pendingIntent);
-        if (alarm.getSpotify()== false)
+        if (!alarm.getSpotify())
            builder.setSound(Uri.parse(alarm.getSonido()), AudioManager.STREAM_ALARM);
 
         if (notifManager == null) {
@@ -105,7 +96,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             if (mChannel == null) {
                 mChannel = new NotificationChannel(id, title, importance);
                 mChannel.enableLights(true);
-                if (alarm.getSpotify()==false)
+                if (!alarm.getSpotify())
                     mChannel.setSound(Uri.parse(alarm.getSonido()), new AudioAttributes.Builder().
                         setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build());
                 if (alarm.isVibrar()) {
